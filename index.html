@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brosur Interaktif - DKV SMK Negeri 1 Pamekasan</title>
+    <!-- Menggunakan Tailwind CSS via CDN untuk prototyping -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#3b82f6',
+                    },
+                    backgroundImage: {
+                        // Menggunakan dummy URL Cloudinary dengan parameter f_auto,q_auto
+                        'hero-pattern': "url('https://res.cloudinary.com/demo/image/upload/f_auto,q_auto/v1/samples/landscapes/nature-mountains.jpg')",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styles untuk animasi Intersection Observer */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        
+        /* Parallax effect murni menggunakan CSS */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased overflow-x-hidden">
+
+    <!-- HERO SECTION DENGAN PARALLAX & GLASSMORPHISM -->
+    <section class="relative min-h-screen flex items-center justify-center parallax-bg bg-hero-pattern">
+        <!-- Overlay gelap agar teks lebih terbaca -->
+        <div class="absolute inset-0 bg-black/40"></div>
+
+        <!-- Container Glassmorphism -->
+        <div class="relative z-10 w-[90%] max-w-md mx-auto p-8 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] fade-in-section">
+            
+            <div class="text-center">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand/20 text-brand-100 border border-brand/30 text-sm font-semibold mb-4 tracking-wider">
+                    PENDAFTARAN 2027
+                </span>
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-300">
+                    DKV
+                </h1>
+                <h2 class="text-xl font-semibold mb-4 text-gray-200">
+                    SMK Negeri 1 Pamekasan
+                </h2>
+                <p class="text-sm text-gray-300 mb-8 leading-relaxed">
+                    Eksplorasi kreativitas tanpa batas. Pelajari fotografi dasar, videografi, hingga desain grafis modern bersama praktisi profesional.
+                </p>
+                
+                <a href="#galeri" class="inline-block w-full py-3 px-6 rounded-xl bg-white text-gray-900 font-bold shadow-lg hover:bg-gray-200 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                    Jelajahi Karya Kami
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION KEDUA UNTUK TESTING SCROLL ANIMATION -->
+    <section id="galeri" class="min-h-screen py-20 px-6 bg-gray-900">
+        <div class="max-w-4xl mx-auto">
+            <div class="fade-in-section mb-12">
+                <h2 class="text-3xl font-bold border-l-4 border-brand pl-4">Kenapa Memilih DKV?</h2>
+                <p class="mt-4 text-gray-400">Pembelajaran berbasis proyek dan praktik langsung di studio.</p>
+            </div>
+            <!-- Container Galeri Dinamis dari Firebase -->
+            <div id="galeri-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+                <!-- Konten foto akan dirender di sini oleh firebase.js -->
+                <div class="col-span-full text-center text-gray-500 animate-pulse">
+                    Memuat karya terbaik...
+                </div>
+            </div>
+            
+            <!-- Grid Interaktif (Persiapan untuk Galeri dari Firebase/Cloudinary) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Kartu Glassmorphism 2 -->
+                <div class="fade-in-section bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition duration-300">
+                    <h3 class="text-xl font-semibold mb-2">Fotografi Dasar</h3>
+                    <p class="text-gray-400 text-sm">Penguasaan komposisi, lighting, dan pengoperasian kamera profesional.</p>
+                </div>
+                <!-- Kartu Glassmorphism 3 -->
+                <div class="fade-in-section bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition duration-300" style="transition-delay: 100ms;">
+                    <h3 class="text-xl font-semibold mb-2">Videografi</h3>
+                    <p class="text-gray-400 text-sm">Teknik pengambilan gambar bergerak dan penyuntingan video (editing).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="js/main.js"></script>
+<script type="module" src="js/firebase.js"></script>
+</body>
+</html>
