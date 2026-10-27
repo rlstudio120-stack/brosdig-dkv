@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - DKV SMKN 1 Pamekasan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans h-screen flex flex-col">
+
+    <!-- LOGIN SECTION -->
+    <div id="login-section" class="flex-1 flex items-center justify-center p-6">
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold text-gray-900">Admin Login</h1>
+                <p class="text-sm text-gray-500 mt-2">Panel pengelolaan brosur DKV</p>
+            </div>
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition">
+                </div>
+                <div id="login-error" class="text-red-500 text-sm hidden">Email atau password salah.</div>
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 rounded-lg shadow transition">
+                    Masuk
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SECTION (Hidden by default) -->
+    <div id="dashboard-section" class="hidden flex-1 flex flex-col">
+        <!-- Navbar Admin -->
+        <nav class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
+            <div class="font-bold text-lg">DKV Panel <span class="text-orange-500">Admin</span></div>
+            <button id="btn-logout" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm transition">
+                Keluar
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-y-auto">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Pengaturan Brosur</h2>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    
+                    <!-- FORM 1: PENGATURAN TEKS UTAMA -->
+                    <form id="content-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Nomor WhatsApp Admin</label>
+                            <p class="text-xs text-gray-500 mb-2">Gunakan format awalan 62 (contoh: 6281234567890)</p>
+                            <input type="text" id="input-wa" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Sub-judul Hero (Beranda)</label>
+                            <textarea id="input-hero-desc" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                        </div>
+                        
+                        <div id="save-status" class="text-sm font-medium hidden"></div>
+
+                        <div class="pt-4 border-t border-gray-100 flex justify-end">
+                            <button type="submit" id="btn-save" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-lg shadow transition">
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    </form> 
+                    <!-- Penutup Form 1 dipindah ke sini agar tidak bertumpuk -->
+
+                    <!-- FORM 2: TAMBAH KOMPETENSI BARU -->
+                    <div class="mt-10 pt-8 border-t border-gray-200">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Tambah Kompetensi & Keahlian</h3>
+                        <form id="kompetensi-form" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Judul Kompetensi</label>
+                                <input type="text" id="komp-judul" placeholder="Contoh: Animasi 3D" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Deskripsi Singkat</label>
+                                <textarea id="komp-desc" rows="2" placeholder="Jelaskan secara singkat..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none"></textarea>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Class Ikon (FontAwesome)</label>
+                                    <input type="text" id="komp-icon" placeholder="Contoh: fa-cube" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">URL Gambar (Cloudinary)</label>
+                                    <input type="url" id="komp-img" placeholder="https://res.cloudinary.com/..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 outline-none">
+                                </div>
+                            </div>
+                            
+                            <div id="komp-status" class="text-sm font-medium hidden"></div>
+
+                            <button type="submit" id="btn-save-komp" class="bg-gray-900 hover:bg-black text-white font-bold py-2.5 px-6 rounded-lg shadow transition w-full md:w-auto">
+                                Tambah Kompetensi
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- TABEL DAFTAR KOMPETENSI -->
+                    <div class="mt-12 pt-8 border-t border-gray-200">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Daftar Kompetensi Tersimpan</h3>
+                        <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ikon</th>
+                                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="komp-table-body" class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500 animate-pulse">Memuat data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FIREBASE & LOGIC -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCyTYYTR18CERTqAO7M3rzlb8eBameaBHU",
+            authDomain: "brosur-dkv-smkn1.firebaseapp.com",
+            projectId: "brosur-dkv-smkn1",
+            storageBucket: "brosur-dkv-smkn1.firebasestorage.app",
+            messagingSenderId: "482994804087",
+            appId: "1:482994804087:web:2b4ef389a4df8518f77d72"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Referensi UI Utama
+        const loginSection = document.getElementById('login-section');
+        const dashboardSection = document.getElementById('dashboard-section');
+        const loginForm = document.getElementById('login-form');
+        const contentForm = document.getElementById('content-form');
+        const loginError = document.getElementById('login-error');
+        const saveStatus = document.getElementById('save-status');
+        
+        const inputWa = document.getElementById('input-wa');
+        const inputHeroDesc = document.getElementById('input-hero-desc');
+
+        const webConfigRef = doc(db, "pengaturan_web", "info_utama");
+
+        // 1. Pantau Status Login
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                loadDashboardData();
+                loadAdminKompetensi(); 
+            } else {
+                loginSection.classList.remove('hidden');
+                dashboardSection.classList.add('hidden');
+            }
+        });
+
+        // 2. Proses Login
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                loginError.classList.add('hidden');
+                
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } catch (error) {
+                    loginError.classList.remove('hidden');
+                }
+            });
+        }
+
+        // 3. Proses Logout
+        const btnLogout = document.getElementById('btn-logout');
+        if(btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                signOut(auth);
+            });
+        }
+
+        // 4. Muat Data dari Firestore ke Form
+        async function loadDashboardData() {
+            try {
+                const docSnap = await getDoc(webConfigRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    inputWa.value = data.nomor_wa || '';
+                    inputHeroDesc.value = data.teks_hero || '';
+                }
+            } catch (error) {
+                console.error("Gagal memuat data:", error);
+            }
+        }
+
+        // 5. Simpan Data dari Form ke Firestore
+        if (contentForm) {
+            contentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btnSave = document.getElementById('btn-save');
+                btnSave.disabled = true;
+                btnSave.innerText = 'Menyimpan...';
+                
+                try {
+                    await setDoc(webConfigRef, {
+                        nomor_wa: inputWa.value,
+                        teks_hero: inputHeroDesc.value,
+                        terakhir_diupdate: new Date().toISOString()
+                    }, { merge: true }); 
+
+                    saveStatus.innerText = "Berhasil disimpan!";
+                    saveStatus.className = "text-sm font-medium text-green-600 block";
+                } catch (error) {
+                    saveStatus.innerText = "Gagal menyimpan: " + error.message;
+                    saveStatus.className = "text-sm font-medium text-red-600 block";
+                } finally {
+                    btnSave.disabled = false;
+                    btnSave.innerText = 'Simpan Perubahan';
+                    setTimeout(() => { saveStatus.classList.add('hidden'); }, 3000);
+                }
+            });
+        }
+
+
+        // ==========================================
+        // LOGIKA CRUD KOMPETENSI
+        // ==========================================
+        const kompForm = document.getElementById('kompetensi-form');
+        const kompStatus = document.getElementById('komp-status');
+        const btnSaveKomp = document.getElementById('btn-save-komp');
+        const kompTableBody = document.getElementById('komp-table-body');
+
+        let editKompId = null; 
+
+        // Fungsi Memuat Tabel Data
+        async function loadAdminKompetensi() {
+            if (!kompTableBody) return;
+            try {
+                const querySnapshot = await getDocs(collection(db, "kompetensi"));
+                let html = '';
+                
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">${data.judul}</td>
+                            <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate" title="${data.deskripsi}">${data.deskripsi}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><i class="fa-solid ${data.ikon} mr-2 text-blue-500"></i> ${data.ikon}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button data-id="${id}" data-action="edit" data-judul="${data.judul}" data-desc="${data.deskripsi}" data-icon="${data.ikon}" data-img="${data.url_gambar}" class="text-blue-600 hover:text-blue-900 mr-4 font-bold">Edit</button>
+                                <button data-id="${id}" data-action="delete" class="text-red-600 hover:text-red-900 font-bold">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                kompTableBody.innerHTML = html !== '' ? html : '<tr><td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">Belum ada data kompetensi.</td></tr>';
+            } catch (error) {
+                console.error("Gagal memuat tabel:", error);
+                kompTableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-4 text-center text-sm text-red-500">Gagal memuat data.</td></tr>`;
+            }
+        }
+
+        // Handler Tombol Aksi di Tabel (Edit & Hapus)
+        if (kompTableBody) {
+            kompTableBody.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+
+                const id = btn.dataset.id;
+                const action = btn.dataset.action;
+
+                if (action === 'edit') {
+                    document.getElementById('komp-judul').value = btn.dataset.judul;
+                    document.getElementById('komp-desc').value = btn.dataset.desc;
+                    document.getElementById('komp-icon').value = btn.dataset.icon;
+                    document.getElementById('komp-img').value = btn.dataset.img;
+                    
+                    editKompId = id; 
+                    
+                    btnSaveKomp.innerText = 'Update Kompetensi';
+                    btnSaveKomp.classList.replace('bg-gray-900', 'bg-blue-600');
+                    btnSaveKomp.classList.replace('hover:bg-black', 'hover:bg-blue-700');
+                    
+                    document.getElementById('kompetensi-form').scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                if (action === 'delete') {
+                    if (confirm('Anda yakin ingin menghapus data kompetensi ini secara permanen?')) {
+                        try {
+                            await deleteDoc(doc(db, "kompetensi", id));
+                            alert('Data berhasil dihapus');
+                            loadAdminKompetensi(); 
+                        } catch (error) {
+                            alert('Gagal menghapus data: ' + error.message);
+                        }
+                    }
+                }
+            });
+        }
+
+        // Handler Form Submit
+        if (kompForm) {
+            kompForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnSaveKomp.disabled = true;
+                btnSaveKomp.innerText = 'Menyimpan...';
+                
+                try {
+                    const dataObj = {
+                        judul: document.getElementById('komp-judul').value,
+                        deskripsi: document.getElementById('komp-desc').value,
+                        ikon: document.getElementById('komp-icon').value,
+                        url_gambar: document.getElementById('komp-img').value,
+                        terakhir_diupdate: new Date().toISOString()
+                    };
+
+                    if (editKompId) {
+                        await updateDoc(doc(db, "kompetensi", editKompId), dataObj);
+                        kompStatus.innerText = "Kompetensi berhasil diperbarui!";
+                        
+                        btnSaveKomp.innerText = 'Tambah Kompetensi';
+                        btnSaveKomp.classList.replace('bg-blue-600', 'bg-gray-900');
+                        btnSaveKomp.classList.replace('hover:bg-blue-700', 'hover:bg-black');
+                        editKompId = null; 
+                    } else {
+                        dataObj.waktu_dibuat = new Date().toISOString(); 
+                        await addDoc(collection(db, "kompetensi"), dataObj);
+                        kompStatus.innerText = "Kompetensi baru berhasil ditambahkan!";
+                    }
+
+                    kompStatus.className = "text-sm font-medium text-green-600 block mt-2";
+                    kompForm.reset(); 
+                    loadAdminKompetensi(); 
+
+                } catch (error) {
+                    kompStatus.innerText = "Terjadi kesalahan: " + error.message;
+                    kompStatus.className = "text-sm font-medium text-red-600 block mt-2";
+                } finally {
+                    btnSaveKomp.disabled = false;
+                    if (!editKompId) btnSaveKomp.innerText = 'Tambah Kompetensi';
+                    setTimeout(() => { kompStatus.classList.add('hidden'); }, 4000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -3,109 +3,748 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brosur Interaktif - DKV SMK Negeri 1 Pamekasan</title>
-    <!-- Menggunakan Tailwind CSS via CDN untuk prototyping -->
+    <title>DKV SMK Negeri 1 Pamekasan</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans untuk tampilan modern dan profesional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
                     colors: {
-                        brand: '#3b82f6',
+                        brand: {
+                            orange: '#f97316', // Warna oranye khas tombol
+                            dark: '#0f172a',   // Warna biru gelap/hitam background
+                        }
                     },
                     backgroundImage: {
-                        // Menggunakan dummy URL Cloudinary dengan parameter f_auto,q_auto
-                        'hero-pattern': "url('https://res.cloudinary.com/demo/image/upload/f_auto,q_auto/v1/samples/landscapes/nature-mountains.jpg')",
+                        // Dummy image menyerupai suasana syuting di mockup
+                        'hero-bg': "url('https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=2071&auto=format&fit=crop')"
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Base styles untuk animasi Intersection Observer */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            will-change: opacity, visibility;
+        /* Custom scrollbar statis */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f97316; }
+
+        /* Sembunyikan scrollbar untuk area carousel horizontal di mobile */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: none;
-        }
-        
-        /* Parallax effect murni menggunakan CSS */
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white font-sans antialiased overflow-x-hidden">
+<body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden">
 
-    <!-- HERO SECTION DENGAN PARALLAX & GLASSMORPHISM -->
-    <section class="relative min-h-screen flex items-center justify-center parallax-bg bg-hero-pattern">
-        <!-- Overlay gelap agar teks lebih terbaca -->
-        <div class="absolute inset-0 bg-black/40"></div>
+    <!-- HERO SECTION BESERTA BACKGROUND -->
+    <section class="relative min-h-screen w-full bg-hero-bg bg-cover bg-center bg-no-repeat lg:bg-fixed">
+        <!-- Overlay Gradasi Gelap (Lebih gelap di kiri untuk teks, agak terang di kanan) -->
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-slate-900/30"></div>
 
-        <!-- Container Glassmorphism -->
-        <div class="relative z-10 w-[90%] max-w-md mx-auto p-8 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] fade-in-section">
-            
-            <div class="text-center">
-                <span class="inline-block py-1 px-3 rounded-full bg-brand/20 text-brand-100 border border-brand/30 text-sm font-semibold mb-4 tracking-wider">
-                    PENDAFTARAN 2027
-                </span>
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-300">
-                    DKV
-                </h1>
-                <h2 class="text-xl font-semibold mb-4 text-gray-200">
-                    SMK Negeri 1 Pamekasan
-                </h2>
-                <p class="text-sm text-gray-300 mb-8 leading-relaxed">
-                    Eksplorasi kreativitas tanpa batas. Pelajari fotografi dasar, videografi, hingga desain grafis modern bersama praktisi profesional.
-                </p>
-                
-                <a href="#galeri" class="inline-block w-full py-3 px-6 rounded-xl bg-white text-gray-900 font-bold shadow-lg hover:bg-gray-200 transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    Jelajahi Karya Kami
+        <!-- NAVBAR TRANSPARAN -->
+        <nav class="relative z-50 w-full px-6 lg:px-16 py-6 flex justify-between items-center text-white">
+            <!-- Logo area -->
+            <div class="flex items-center gap-3">
+                <!-- Logo DKV placeholder (teks dengan warna oranye & biru) -->
+                <div class="text-3xl font-extrabold tracking-tighter">
+                    <span class="text-brand-orange">D</span><span class="text-blue-500">K</span><span class="text-white">V</span>
+                </div>
+                <div class="leading-tight border-l-2 border-white/30 pl-3">
+                    <p class="text-sm font-bold">SMK NEGERI 1</p>
+                    <p class="text-xs font-medium tracking-widest">PAMEKASAN</p>
+                </div>
+            </div>
+
+            <!-- Menu Desktop -->
+            <div class="hidden lg:flex items-center gap-8 text-sm font-semibold">
+                <a href="#" class="text-brand-orange transition">Beranda</a>
+                <a href="#" class="hover:text-brand-orange transition">Kompetensi</a>
+                <a href="#" class="hover:text-brand-orange transition">Galeri</a>
+                <a href="#" class="hover:text-brand-orange transition">Fasilitas</a>
+                <a href="#" class="hover:text-brand-orange transition">Karier</a>
+                <a href="#" class="hover:text-brand-orange transition">Pendaftaran</a>
+                <a href="#" class="hover:text-brand-orange transition">Kontak</a>
+            </div>
+
+            <!-- Tombol CTA Desktop -->
+            <div class="hidden lg:block">
+                <a href="#" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all">
+                    Daftar Sekarang
                 </a>
             </div>
-        </div>
-    </section>
 
-    <!-- SECTION KEDUA UNTUK TESTING SCROLL ANIMATION -->
-    <section id="galeri" class="min-h-screen py-20 px-6 bg-gray-900">
-        <div class="max-w-4xl mx-auto">
-            <div class="fade-in-section mb-12">
-                <h2 class="text-3xl font-bold border-l-4 border-brand pl-4">Kenapa Memilih DKV?</h2>
-                <p class="mt-4 text-gray-400">Pembelajaran berbasis proyek dan praktik langsung di studio.</p>
-            </div>
-            <!-- Container Galeri Dinamis dari Firebase -->
-            <div id="galeri-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-                <!-- Konten foto akan dirender di sini oleh firebase.js -->
-                <div class="col-span-full text-center text-gray-500 animate-pulse">
-                    Memuat karya terbaik...
+            <!-- Hamburger Menu Mobile -->
+            <button class="lg:hidden text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- KONTEN UTAMA HERO -->
+        <div class="relative z-10 w-full h-[calc(100vh-100px)] flex flex-col justify-center px-6 lg:px-16 pb-20 lg:pb-0">
+            
+            <!-- Grid untuk memisahkan Teks (Kiri) dan Kartu Glassmorphism (Kanan Bawah) di Desktop -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end w-full max-w-7xl mx-auto">
+                
+                <!-- Kolom Kiri: Judul dan Teks -->
+                <div class="flex flex-col justify-center max-w-2xl pt-10 lg:pt-0">
+                    <h1 class="text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6">
+                        Wujudkan <br>
+                        <span class="text-brand-orange">Imajinasi</span>mu <br>
+                        bersama DKV <br>
+                        SMK Negeri 1 <br>
+                        Pamekasan
+                    </h1>
+                    
+                    <p id="hero-desc-display" class="text-gray-300 text-lg lg:text-xl mb-10 max-w-xl leading-relaxed">
+                        Tempat terbaik untuk mengasah kreativitas, menguasai teknologi, dan siap berkarya di industri kreatif.
+                    </p>
+                    
+                    <!-- Grup Tombol -->
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#portofolio" class="bg-brand-orange hover:bg-orange-600 text-white px-8 py-3.5 rounded-full font-bold text-sm shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all transform hover:-translate-y-1">
+                            Lihat Portofolio
+                        </a>
+                        <a href="#tentang" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-3.5 rounded-full font-bold text-sm transition-all transform hover:-translate-y-1 flex items-center gap-2">
+                            Kenali DKV <i class="fa-solid fa-play text-xs ml-1"></i>
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Kolom Kanan: 3 Kartu Nilai (Kreatif, Inovatif, Profesional) -->
+                <!-- Di mobile posisinya akan berada di bawah tombol, di desktop di kanan bawah -->
+                <div class="flex justify-start lg:justify-end mt-16 lg:mt-0">
+                    <div class="grid grid-cols-3 gap-3 lg:gap-6 w-full lg:w-auto bg-white/5 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none p-4 lg:p-0 rounded-2xl border border-white/10 lg:border-none">
+                        
+                        <!-- Kartu 1: Kreatif -->
+                        <div class="flex flex-col items-center justify-center text-center p-3 lg:p-6 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 rounded-2xl lg:rounded-3xl hover:bg-white/20 transition-all cursor-default lg:w-36 lg:h-36">
+                            <i class="fa-regular fa-lightbulb text-2xl lg:text-3xl text-brand-orange mb-2 lg:mb-3"></i>
+                            <h3 class="text-white font-bold text-sm lg:text-base mb-1">Kreatif</h3>
+                            <p class="text-gray-400 text-[10px] lg:text-xs">Tanpa Batas</p>
+                        </div>
+                        
+                        <!-- Kartu 2: Inovatif -->
+                        <div class="flex flex-col items-center justify-center text-center p-3 lg:p-6 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 rounded-2xl lg:rounded-3xl hover:bg-white/20 transition-all cursor-default lg:w-36 lg:h-36">
+                            <i class="fa-solid fa-wand-magic-sparkles text-2xl lg:text-3xl text-brand-orange mb-2 lg:mb-3"></i>
+                            <h3 class="text-white font-bold text-sm lg:text-base mb-1">Inovatif</h3>
+                            <p class="text-gray-400 text-[10px] lg:text-xs">Selalu Terkini</p>
+                        </div>
+                        
+                        <!-- Kartu 3: Profesional -->
+                        <div class="flex flex-col items-center justify-center text-center p-3 lg:p-6 lg:bg-white/10 lg:backdrop-blur-md lg:border lg:border-white/20 rounded-2xl lg:rounded-3xl hover:bg-white/20 transition-all cursor-default lg:w-36 lg:h-36">
+                            <i class="fa-solid fa-briefcase text-2xl lg:text-3xl text-brand-orange mb-2 lg:mb-3"></i>
+                            <h3 class="text-white font-bold text-sm lg:text-base mb-1">Profesional</h3>
+                            <p class="text-gray-400 text-[10px] lg:text-xs">Siap Industri</p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
             
-            <!-- Grid Interaktif (Persiapan untuk Galeri dari Firebase/Cloudinary) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Kartu Glassmorphism 2 -->
-                <div class="fade-in-section bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Fotografi Dasar</h3>
-                    <p class="text-gray-400 text-sm">Penguasaan komposisi, lighting, dan pengoperasian kamera profesional.</p>
-                </div>
-                <!-- Kartu Glassmorphism 3 -->
-                <div class="fade-in-section bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition duration-300" style="transition-delay: 100ms;">
-                    <h3 class="text-xl font-semibold mb-2">Videografi</h3>
-                    <p class="text-gray-400 text-sm">Teknik pengambilan gambar bergerak dan penyuntingan video (editing).</p>
-                </div>
+            <!-- Indikator Scroll di Desktop (Bulatan kecil di kanan) -->
+            <div class="hidden lg:flex absolute right-16 top-1/2 -translate-y-1/2 flex-col gap-3">
+                <div class="w-2.5 h-2.5 rounded-full bg-brand-orange shadow-[0_0_10px_rgba(249,115,22,0.8)]"></div>
+                <div class="w-2 h-2 rounded-full bg-white/30 border border-white/50"></div>
+                <div class="w-2 h-2 rounded-full bg-white/30 border border-white/50"></div>
+                <div class="w-2 h-2 rounded-full bg-white/30 border border-white/50"></div>
             </div>
+
+        </div>
+    </section>
+    <!-- KOMPETENSI & KEAHLIAN INTI -->
+    <section id="kompetensi" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <!-- Judul Section -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
+                    Kompetensi & Keahlian Inti
+                </h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
+                    Kuasai skill yang relevan dengan kebutuhan industri kreatif saat ini.
+                </p>
+            </div>
+
+            <!-- Container untuk JavaScript Firestore -->
+            <div id="kompetensi-container" class="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 pb-8 lg:pb-0 snap-x snap-mandatory hide-scrollbar relative">
+                
+                <!-- Teks loading sementara sebelum data dari Firebase masuk -->
+                <div class="col-span-4 text-center py-10 w-full">
+                    <p class="text-gray-500 animate-pulse font-medium">Memuat kompetensi keahlian...</p>
+                </div>
+
+            </div>
+            
+        </div>
+    </section>
+    <!-- GALERI PORTOFOLIO SISWA -->
+    <section id="portofolio" class="py-20 bg-[#f8fafc]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <!-- Judul Section -->
+            <div class="text-center mb-10">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
+                    Galeri Portofolio Siswa
+                </h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
+                    Karya terbaik siswa DKV SMK Negeri 1 Pamekasan
+                </p>
+            </div>
+
+            <!-- Filter Kategori -->
+            <div class="flex flex-wrap justify-center gap-2 lg:gap-4 mb-12">
+                <button class="filter-btn active px-6 py-2 rounded-full text-sm font-bold bg-brand-orange text-white shadow-md transition-all" data-filter="semua">
+                    Semua
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="fotografi">
+                    Fotografi
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="identitas-visual">
+                    Identitas Visual / Logo
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="ui-ux">
+                    UI/UX
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="iklan-video">
+                    Iklan Video (60 Detik)
+                </button>
+            </div>
+
+            <!-- Grid Galeri -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6" id="gallery-grid">
+                
+                <!-- Item: Fotografi (Tugas Fotografi Dasar) -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="fotografi">
+                    <img src="https://images.unsplash.com/photo-1621360841013-c76831f12560?q=80&w=600&auto=format&fit=crop" alt="Fotografi Konseptual" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+                <!-- Item: Identitas Visual -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-[#0f172a] flex items-center justify-center" data-category="identitas-visual">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&auto=format&fit=crop" alt="Desain Kemasan" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500 opacity-80 group-hover:opacity-100">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+                <!-- Item: Identitas Visual Logo KAYA -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-black" data-category="identitas-visual">
+                    <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?q=80&w=600&auto=format&fit=crop" alt="Logo Kaya Coffee" class="w-full h-48 lg:h-64 object-contain p-8 group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+                <!-- Item: UI/UX -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="ui-ux">
+                    <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=600&auto=format&fit=crop" alt="Desain UI/UX Mobile App" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+                <!-- Item: Fotografi (Tugas Leading Lines/Komposisi) -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="fotografi">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=600&auto=format&fit=crop" alt="Fotografi Pemandangan Alam" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+                <!-- Item: Iklan Video 60 Detik -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-gray-900" data-category="iklan-video">
+                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop" alt="Iklan Video Never Stop Creating" class="w-full h-48 lg:h-64 object-cover opacity-70 group-hover:scale-110 transition duration-500">
+                    <!-- Ikon Play Video -->
+                    <div class="absolute inset-0 flex items-center justify-center z-10">
+                        <div class="w-12 h-12 rounded-full border-2 border-white/80 flex items-center justify-center backdrop-blur-sm group-hover:bg-brand-orange group-hover:border-brand-orange transition-all">
+                            <i class="fa-solid fa-play text-white ml-1"></i>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+
+                 <!-- Item: Identitas Visual -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="identitas-visual">
+                    <img src="https://images.unsplash.com/photo-1542451313056-b7c8e626645f?q=80&w=600&auto=format&fit=crop" alt="Fotografi Potret" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+                <!-- Item: UI/UX (Mockup Produk) -->
+                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-[#0f172a]" data-category="ui-ux">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="Mockup Jam Tangan" class="w-full h-48 lg:h-64 object-cover opacity-80 group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Tombol Lihat Semua -->
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-[#0f172a] hover:bg-[#1e293b] text-white px-8 py-3 rounded-full font-bold text-sm transition-all shadow-lg transform hover:-translate-y-1">
+                    Lihat Semua Karya
+                </a>
+            </div>
+
+        </div>
+    </section>
+    <!-- FASILITAS STUDIO & PRAKTIK -->
+    <section id="fasilitas" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <!-- Judul Section -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
+                    Fasilitas Studio & Praktik
+                </h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
+                    Didukung fasilitas lengkap untuk menunjang pembelajaran praktik
+                </p>
+            </div>
+
+            <!-- Wrapper Carousel & Tombol Navigasi -->
+            <div class="relative group">
+                
+                <!-- Tombol Kiri (Desktop) -->
+                <button id="btn-prev-fasilitas" class="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-brand-orange text-white rounded-full items-center justify-center shadow-lg hover:bg-orange-600 transition-colors transform scale-0 group-hover:scale-100">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <!-- Container Carousel -->
+                <div id="carousel-fasilitas" class="flex overflow-x-auto gap-4 lg:gap-6 snap-x snap-mandatory hide-scrollbar scroll-smooth pb-4">
+                    
+                    <!-- Item 1: Studio Fotografi -->
+                    <div class="min-w-[85vw] md:min-w-[45vw] lg:min-w-0 lg:flex-1 snap-center flex flex-col group cursor-pointer">
+                        <div class="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1601506521937-0121a7fc2a6b?q=80&w=800&auto=format&fit=crop" alt="Studio Fotografi" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <!-- Overlay Text Mobile (seperti desain seluler) -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden flex flex-col justify-end p-5">
+                                <h3 class="text-white font-bold text-lg">Studio Fotografi</h3>
+                                <p class="text-gray-300 text-xs mt-1">Perlengkapan kamera & lensa lengkap</p>
+                            </div>
+                        </div>
+                        <!-- Teks Desktop -->
+                        <div class="hidden lg:block px-1">
+                            <h3 class="text-xl font-bold text-[#0f172a] mb-1 group-hover:text-brand-orange transition-colors">Studio Fotografi</h3>
+                            <p class="text-gray-500 text-sm">Perlengkapan kamera & lensa lengkap</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Perlengkapan Lighting -->
+                    <div class="min-w-[85vw] md:min-w-[45vw] lg:min-w-0 lg:flex-1 snap-center flex flex-col group cursor-pointer">
+                        <div class="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1598256989791-30ba8148b06c?q=80&w=800&auto=format&fit=crop" alt="Perlengkapan Lighting" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden flex flex-col justify-end p-5">
+                                <h3 class="text-white font-bold text-lg">Perlengkapan Lighting</h3>
+                                <p class="text-gray-300 text-xs mt-1">Lighting profesional untuk foto & video</p>
+                            </div>
+                        </div>
+                        <div class="hidden lg:block px-1">
+                            <h3 class="text-xl font-bold text-[#0f172a] mb-1 group-hover:text-brand-orange transition-colors">Perlengkapan Lighting</h3>
+                            <p class="text-gray-500 text-sm">Lighting profesional untuk foto & video</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Lab Komputer DKV -->
+                    <div class="min-w-[85vw] md:min-w-[45vw] lg:min-w-0 lg:flex-1 snap-center flex flex-col group cursor-pointer">
+                        <div class="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop" alt="Lab Komputer DKV" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden flex flex-col justify-end p-5">
+                                <h3 class="text-white font-bold text-lg">Lab Komputer DKV</h3>
+                                <p class="text-gray-300 text-xs mt-1">PC high spec untuk desain & editing</p>
+                            </div>
+                        </div>
+                        <div class="hidden lg:block px-1">
+                            <h3 class="text-xl font-bold text-[#0f172a] mb-1 group-hover:text-brand-orange transition-colors">Lab Komputer DKV</h3>
+                            <p class="text-gray-500 text-sm">PC high spec untuk desain & editing</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Ruang Editing Video -->
+                    <div class="min-w-[85vw] md:min-w-[45vw] lg:min-w-0 lg:flex-1 snap-center flex flex-col group cursor-pointer">
+                        <div class="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-4 relative">
+                            <img src="https://images.unsplash.com/photo-1589417937510-7233267bbf92?q=80&w=800&auto=format&fit=crop" alt="Ruang Editing Video" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent lg:hidden flex flex-col justify-end p-5">
+                                <h3 class="text-white font-bold text-lg">Ruang Editing Video</h3>
+                                <p class="text-gray-300 text-xs mt-1">Ruang editing dengan perangkat terkini</p>
+                            </div>
+                        </div>
+                        <div class="hidden lg:block px-1">
+                            <h3 class="text-xl font-bold text-[#0f172a] mb-1 group-hover:text-brand-orange transition-colors">Ruang Editing Video</h3>
+                            <p class="text-gray-500 text-sm">Ruang editing dengan perangkat terkini</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Tombol Kanan (Desktop) -->
+                <button id="btn-next-fasilitas" class="hidden lg:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-brand-orange text-white rounded-full items-center justify-center shadow-lg hover:bg-orange-600 transition-colors transform scale-0 group-hover:scale-100">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Indikator Dots -->
+            <div class="flex justify-center items-center gap-2 mt-6">
+                <div class="w-2.5 h-2.5 rounded-full bg-brand-orange"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-gray-300"></div>
+            </div>
+
         </div>
     </section>
 
-<script src="js/main.js"></script>
-<script type="module" src="js/firebase.js"></script>
+    <!-- PROSPEK KARIR & ALUMNI -->
+    <section id="karir" class="py-20 bg-[#f8fafc]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <!-- Judul Section -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
+                    Prospek Karir & Alumni
+                </h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
+                    Peluang karir luas di industri kreatif menanti Anda
+                </p>
+            </div>
+
+            <!-- Grid Layout untuk Karir (Kiri) dan Testimoni (Kanan) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+                
+                <!-- KOLOM KIRI: Peluang Karir -->
+                <div class="lg:col-span-5">
+                    <h3 class="text-brand-orange font-bold text-center lg:text-left mb-6">Peluang Karir</h3>
+                    
+                    <!-- Grid Ikon Profesi -->
+                    <div class="grid grid-cols-3 gap-3 md:gap-4">
+                        
+                        <!-- Profesi 1 -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                            <i class="fa-solid fa-camera-retro text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center">Fotografer</span>
+                        </div>
+
+                        <!-- Profesi 2 -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                            <i class="fa-solid fa-clapperboard text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center">Sutradara</span>
+                        </div>
+
+                        <!-- Profesi 3 -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                            <i class="fa-solid fa-tv text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Content Creator</span>
+                        </div>
+
+                        <!-- Profesi 4 -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                            <i class="fa-solid fa-laptop-code text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Web Developer</span>
+                        </div>
+
+                        <!-- Profesi 5 -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                            <i class="fa-solid fa-pen-nib text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Desainer Grafis</span>
+                        </div>
+
+                        <!-- Profesi 6 -->
+                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                            <i class="fa-solid fa-bullseye text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Digital Marketer</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- KOLOM KANAN: Kata Alumni -->
+                <div class="lg:col-span-7">
+                    <h3 class="text-blue-900 font-bold text-center lg:text-left mb-6">Kata Alumni</h3>
+                    
+                    <!-- Grid Testimoni -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                        
+                        <!-- Testimoni 1 -->
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative">
+                            <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
+                            <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
+                                "DKV mengajarkan saya untuk berani berkarya. Sekarang saya bekerja sebagai videografer freelance."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=150&auto=format&fit=crop" alt="Ahmad Fauzi" class="w-10 h-10 rounded-full object-cover">
+                                <div>
+                                    <h4 class="text-[#0f172a] font-bold text-sm">Ahmad Fauzi</h4>
+                                    <p class="text-gray-400 text-xs">Videografer Freelance</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimoni 2 -->
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative">
+                            <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
+                            <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
+                                "Ilmu desain yang saya dapatkan di DKV sangat berguna untuk karir saya sebagai UI/UX designer."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" alt="Nabila Putri" class="w-10 h-10 rounded-full object-cover">
+                                <div>
+                                    <h4 class="text-[#0f172a] font-bold text-sm">Nabila Putri</h4>
+                                    <p class="text-gray-400 text-xs">UI/UX Designer di Jakarta</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimoni 3 (Span 2 kolom di HP/Tablet, 1 kolom di Desktop besar) -->
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative sm:col-span-2 lg:col-span-1">
+                            <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
+                            <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
+                                "Berkat belajar konten digital, saya bisa menjadi content creator dan bekerja dengan brand besar."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Rizky Pratama" class="w-10 h-10 rounded-full object-cover">
+                                <div>
+                                    <h4 class="text-[#0f172a] font-bold text-sm">Rizky Pratama</h4>
+                                    <p class="text-gray-400 text-xs">Content Creator</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- PENDAFTARAN & KONTAK -->
+    <section id="pendaftaran" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <!-- Judul Section -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
+                    Pendaftaran & Kontak
+                </h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
+                    Bergabunglah bersama kami dan wujudkan imajinasimu!
+                </p>
+            </div>
+
+            <!-- Alur Pendaftaran (Timeline) -->
+            <div class="mb-16">
+                <h3 class="text-[#0f172a] font-bold text-center lg:text-left mb-8">Alur Pendaftaran</h3>
+                
+                <div class="relative">
+                    <!-- Garis Penghubung Latar Belakang (Desktop: Horizontal, Mobile: Vertikal) -->
+                    <div class="hidden lg:block absolute top-5 left-10 right-10 h-[2px] bg-gray-200 -z-10"></div>
+                    <div class="lg:hidden absolute top-5 bottom-5 left-5 w-[2px] bg-gray-200 -z-10"></div>
+
+                    <!-- Item Timeline -->
+                    <div class="flex flex-col lg:flex-row justify-between gap-8 lg:gap-4 relative z-10">
+                        
+                        <!-- Step 1 -->
+                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
+                            <!-- Garis mobile connector -->
+                            <div class="lg:hidden absolute top-10 left-5 w-[2px] h-full bg-gray-200 -z-10"></div>
+                            
+                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">01</div>
+                            <div class="lg:text-center mt-1 lg:mt-0">
+                                <h4 class="text-blue-900 font-bold text-sm mb-1">Pendaftaran Online</h4>
+                                <p class="text-gray-400 text-xs">Isi formulir pendaftaran di website resmi</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
+                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">02</div>
+                            <div class="lg:text-center mt-1 lg:mt-0">
+                                <h4 class="text-blue-900 font-bold text-sm mb-1">Seleksi Berkas</h4>
+                                <p class="text-gray-400 text-xs">Verifikasi dan validasi berkas pendaftaran</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
+                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">03</div>
+                            <div class="lg:text-center mt-1 lg:mt-0">
+                                <h4 class="text-blue-900 font-bold text-sm mb-1">Tes & Wawancara</h4>
+                                <p class="text-gray-400 text-xs">Mengikuti tes minat dan wawancara</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
+                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">04</div>
+                            <div class="lg:text-center mt-1 lg:mt-0">
+                                <h4 class="text-blue-900 font-bold text-sm mb-1">Pengumuman</h4>
+                                <p class="text-gray-400 text-xs">Pengumuman hasil seleksi</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
+                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">05</div>
+                            <div class="lg:text-center mt-1 lg:mt-0">
+                                <h4 class="text-blue-900 font-bold text-sm mb-1">Daftar Ulang</h4>
+                                <p class="text-gray-400 text-xs">Melakukan daftar ulang dan pembayaran</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Kontak (WhatsApp & Lokasi Sekolah) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 bg-[#f8fafc] rounded-3xl p-6 lg:p-8 border border-gray-100 shadow-sm">
+                
+                <!-- Tombol WhatsApp Besar -->
+                <a id="wa-link-display" href="https://wa.me/6281234567890" target="_blank" class="flex items-center justify-between bg-brand-orange hover:bg-orange-600 text-white p-6 rounded-2xl transition-all shadow-[0_4px_20px_rgba(249,115,22,0.3)] transform hover:-translate-y-1 group">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-brands fa-whatsapp text-4xl lg:text-5xl group-hover:scale-110 transition-transform"></i>
+                        <div>
+                            <h4 class="font-bold text-lg lg:text-xl">WhatsApp Admin</h4>
+                            <p id="wa-text-display" class="font-medium text-white/90 text-xl lg:text-2xl">0812-3456-7890</p>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex items-center gap-2 text-sm bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                        <span>Chat Sekarang</span> <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </a>
+
+                <!-- Lokasi Sekolah dengan Peta Mini -->
+                <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-blue-600">
+                            <i class="fa-solid fa-location-dot text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-[#0f172a] text-sm lg:text-base">Lokasi Sekolah</h4>
+                            <p class="text-gray-500 text-xs lg:text-sm">Jl. Raya Panglegur No.10, Pamekasan, Jawa Timur</p>
+                        </div>
+                    </div>
+                    <!-- Placeholder untuk thumbnail peta -->
+                    <div class="w-16 h-16 bg-gray-200 rounded-xl overflow-hidden hidden sm:block relative">
+                         <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="Map">
+                         <i class="fa-solid fa-location-pin absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-500"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#0f172a] text-white pt-16 pb-8 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                
+                <!-- Kolom 1: Logo & Deskripsi -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="text-2xl font-extrabold tracking-tighter">
+                            <span class="text-brand-orange">D</span><span class="text-blue-500">K</span><span class="text-white">V</span>
+                        </div>
+                        <div class="leading-tight border-l-2 border-white/30 pl-3">
+                            <p class="text-xs font-bold">SMK NEGERI 1</p>
+                            <p class="text-[10px] font-medium tracking-widest text-gray-300">PAMEKASAN</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-6">
+                        Jurusan Desain Komunikasi Visual. Kreatif, Inovatif, Profesional.
+                    </p>
+                    
+                    <!-- Ikon Sosial Media -->
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors"><i class="fa-brands fa-youtube text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors"><i class="fa-brands fa-tiktok text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-orange transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Tautan Cepat -->
+                <div>
+                    <h4 class="font-bold text-sm mb-5 text-white">Tautan Cepat</h4>
+                    <ul class="flex flex-col gap-3 text-xs text-gray-400">
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">Beranda</a></li>
+                        <li><a href="#kompetensi" class="hover:text-brand-orange transition-colors">Kompetensi</a></li>
+                        <li><a href="#fasilitas" class="hover:text-brand-orange transition-colors">Fasilitas</a></li>
+                        <li><a href="#pendaftaran" class="hover:text-brand-orange transition-colors">Pendaftaran</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Tautan Cepat Lanjutan -->
+                <div>
+                    <h4 class="font-bold text-sm mb-5 text-transparent select-none hidden lg:block">.</h4>
+                    <ul class="flex flex-col gap-3 text-xs text-gray-400">
+                        <li><a href="#portofolio" class="hover:text-brand-orange transition-colors">Galeri</a></li>
+                        <li><a href="#karir" class="hover:text-brand-orange transition-colors">Karier</a></li>
+                        <li><a href="#kontak" class="hover:text-brand-orange transition-colors">Kontak</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 4: Kontak & Alamat -->
+                <div id="kontak">
+                    <h4 class="font-bold text-sm mb-5 text-white">Kontak</h4>
+                    <ul class="flex flex-col gap-4 text-xs text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone mt-0.5 text-gray-300"></i>
+                            <span>(0324) 324978</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope mt-0.5 text-gray-300"></i>
+                            <span>info@smkn1pamekasan.sch.id</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-clock mt-0.5 text-gray-300"></i>
+                            <span>Senin - Sabtu (07.00 - 15.00)</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-500">&copy; 2027 DKV SMK Negeri 1 Pamekasan. Hak Cipta Dilindungi.</p>
+                <div class="flex gap-4 text-xs text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    
+    <!-- Script Kustom -->
+    <script src="js/main.js"></script> <!-- Jika ada file JS untuk animasi/UI -->
+    
+    <!-- Script Firebase (Wajib type="module") -->
+    <script type="module" src="js/firebase.js"></script>
 </body>
 </html>
