@@ -51,6 +51,16 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Styling untuk hasil Editor Teks (Quill) Tema Gelap Transparan */
+        .quill-content { color: #f8fafc; text-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+        .quill-content h1, .quill-content h2 { font-weight: 800; margin-top: 1.2rem; margin-bottom: 0.5rem; color: #ffffff; }
+        .quill-content h1 { font-size: 1.5rem; }
+        .quill-content h2 { font-size: 1.25rem; }
+        .quill-content p { margin-bottom: 1rem; }
+        .quill-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: #e2e8f0; }
+        .quill-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1rem; color: #e2e8f0; }
+        .quill-content a { color: #f97316; text-decoration: underline; font-weight: 700; }
     </style>
 </head>
 <body class="bg-white text-gray-800 font-sans antialiased overflow-x-hidden">
@@ -170,147 +180,70 @@
 
         </div>
     </section>
-    <!-- KOMPETENSI & KEAHLIAN INTI -->
-    <section id="kompetensi" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+
+    <!-- KOMPETENSI & KEAHLIAN INTI (Dark Glassmorphism) -->
+    <section id="kompetensi" class="py-20 relative overflow-hidden bg-[#0f172a]">
+        
+        <!-- Gradasi Dasar Latar Belakang -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-slate-900 to-blue-950/80 z-0"></div>
+
+        <!-- Titik Cahaya Neon -->
+        <div class="absolute -top-32 -left-20 w-[28rem] h-[28rem] bg-blue-600/50 rounded-full filter blur-[120px] animate-pulse z-0 pointer-events-none"></div>
+        <div class="absolute -bottom-40 -right-20 w-[32rem] h-[32rem] bg-orange-500/30 rounded-full filter blur-[140px] z-0 pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/3 w-96 h-96 bg-purple-600/20 rounded-full filter blur-[120px] z-0 pointer-events-none"></div>
+
+        <!-- KONTEN UTAMA -->
+        <div class="max-w-7xl mx-auto relative z-10">
             
             <!-- Judul Section -->
-            <div class="text-center mb-12">
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
+            <div class="text-center mb-12 px-6 lg:px-16">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-white mb-3 drop-shadow-lg">
                     Kompetensi & Keahlian Inti
                 </h2>
-                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
+                <p class="text-slate-300 text-sm lg:text-base max-w-2xl mx-auto">
                     Kuasai skill yang relevan dengan kebutuhan industri kreatif saat ini.
                 </p>
             </div>
 
-            <!-- Container untuk JavaScript Firestore -->
-            <div id="kompetensi-container" class="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-6 pb-8 lg:pb-0 snap-x snap-mandatory hide-scrollbar relative">
+            <!-- Container Carousel: Diberi flex-row dan overflow-x-auto murni -->
+            <div id="kompetensi-container" class="flex flex-row overflow-x-auto lg:grid lg:grid-cols-4 gap-6 px-6 lg:px-16 pb-12 snap-x snap-mandatory hide-scrollbar w-full">
                 
-                <!-- Teks loading sementara sebelum data dari Firebase masuk -->
-                <div class="col-span-4 text-center py-10 w-full">
-                    <p class="text-gray-500 animate-pulse font-medium">Memuat kompetensi keahlian...</p>
+                <!-- Teks loading -->
+                <div class="w-full text-center py-10">
+                    <p class="text-slate-400 animate-pulse font-medium">Memuat kompetensi keahlian...</p>
                 </div>
 
             </div>
             
         </div>
     </section>
-    <!-- GALERI PORTOFOLIO SISWA -->
-    <section id="portofolio" class="py-20 bg-[#f8fafc]">
+    
+    <!-- GALERI SISWA -->
+    <section id="galeri" class="py-20 bg-[#f8fafc]">
         <div class="max-w-7xl mx-auto px-6 lg:px-16">
             
-            <!-- Judul Section -->
             <div class="text-center mb-10">
-                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
-                    Galeri Portofolio Siswa
-                </h2>
-                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
-                    Karya terbaik siswa DKV SMK Negeri 1 Pamekasan
-                </p>
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">Galeri Siswa</h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">Dokumentasi kegiatan, prestasi, dan rekam jejak alumni DKV SMK Negeri 1 Pamekasan.</p>
             </div>
 
-            <!-- Filter Kategori -->
-            <div class="flex flex-wrap justify-center gap-2 lg:gap-4 mb-12">
-                <button class="filter-btn active px-6 py-2 rounded-full text-sm font-bold bg-brand-orange text-white shadow-md transition-all" data-filter="semua">
-                    Semua
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="fotografi">
-                    Fotografi
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="identitas-visual">
-                    Identitas Visual / Logo
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="ui-ux">
-                    UI/UX
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange transition-all" data-filter="iklan-video">
-                    Iklan Video (60 Detik)
-                </button>
+            <!-- Filter Kategori Dinamis -->
+            <div class="flex flex-wrap justify-center gap-2 lg:gap-4 mb-12" id="filter-container">
+                <button class="filter-btn active px-6 py-2 rounded-full text-sm font-bold bg-brand-orange text-white shadow-md transition-all" data-filter="semua">Semua</button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="praktik">Praktik</button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="prestasi">Prestasi</button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="alumni">Alumni</button>
+                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="karya">Karya Portofolio</button>
             </div>
 
-            <!-- Grid Galeri -->
+            <!-- Wadah Grid Galeri untuk JS -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6" id="gallery-grid">
-                
-                <!-- Item: Fotografi (Tugas Fotografi Dasar) -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="fotografi">
-                    <img src="https://images.unsplash.com/photo-1621360841013-c76831f12560?q=80&w=600&auto=format&fit=crop" alt="Fotografi Konseptual" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-                <!-- Item: Identitas Visual -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-[#0f172a] flex items-center justify-center" data-category="identitas-visual">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&auto=format&fit=crop" alt="Desain Kemasan" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500 opacity-80 group-hover:opacity-100">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-                <!-- Item: Identitas Visual Logo KAYA -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-black" data-category="identitas-visual">
-                    <img src="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?q=80&w=600&auto=format&fit=crop" alt="Logo Kaya Coffee" class="w-full h-48 lg:h-64 object-contain p-8 group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-                <!-- Item: UI/UX -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="ui-ux">
-                    <img src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=600&auto=format&fit=crop" alt="Desain UI/UX Mobile App" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-                <!-- Item: Fotografi (Tugas Leading Lines/Komposisi) -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="fotografi">
-                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=600&auto=format&fit=crop" alt="Fotografi Pemandangan Alam" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-                <!-- Item: Iklan Video 60 Detik -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-gray-900" data-category="iklan-video">
-                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop" alt="Iklan Video Never Stop Creating" class="w-full h-48 lg:h-64 object-cover opacity-70 group-hover:scale-110 transition duration-500">
-                    <!-- Ikon Play Video -->
-                    <div class="absolute inset-0 flex items-center justify-center z-10">
-                        <div class="w-12 h-12 rounded-full border-2 border-white/80 flex items-center justify-center backdrop-blur-sm group-hover:bg-brand-orange group-hover:border-brand-orange transition-all">
-                            <i class="fa-solid fa-play text-white ml-1"></i>
-                        </div>
-                    </div>
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-
-                 <!-- Item: Identitas Visual -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer" data-category="identitas-visual">
-                    <img src="https://images.unsplash.com/photo-1542451313056-b7c8e626645f?q=80&w=600&auto=format&fit=crop" alt="Fotografi Potret" class="w-full h-48 lg:h-64 object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-                <!-- Item: UI/UX (Mockup Produk) -->
-                <div class="gallery-item group relative rounded-2xl overflow-hidden cursor-pointer bg-[#0f172a]" data-category="ui-ux">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop" alt="Mockup Jam Tangan" class="w-full h-48 lg:h-64 object-cover opacity-80 group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-sm bg-brand-orange/90 px-4 py-2 rounded-lg backdrop-blur-sm">Lihat Detail</span>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Tombol Lihat Semua -->
-            <div class="text-center mt-12">
-                <a href="#" class="inline-block bg-[#0f172a] hover:bg-[#1e293b] text-white px-8 py-3 rounded-full font-bold text-sm transition-all shadow-lg transform hover:-translate-y-1">
-                    Lihat Semua Karya
-                </a>
+                <div class="col-span-full text-center py-10 text-gray-500 animate-pulse">Memuat foto galeri...</div>
             </div>
 
         </div>
     </section>
+
     <!-- FASILITAS STUDIO & PRAKTIK -->
     <section id="fasilitas" class="py-20 bg-white relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-16">
@@ -655,6 +588,51 @@
 
         </div>
     </section>
+
+    <!-- MODAL POPUP KOMPETENSI (Tersembunyi secara default) -->
+    <div id="komp-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        
+        <!-- Pembungkus Efek Kaca Gelap -->
+        <div class="bg-slate-900/85 backdrop-blur-2xl border border-slate-700/50 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300 relative max-h-[90vh] flex flex-col">
+            
+            <!-- Tombol Tutup Silang (X) Statis -->
+            <button onclick="tutupModalKomp()" class="absolute top-4 right-4 w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white rounded-full flex items-center justify-center transition-colors z-20 shadow-lg border border-orange-400">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <!-- Gambar Banner Kompetensi (Statis) -->
+            <div class="relative w-full h-40 md:h-52 shrink-0">
+                <img id="modal-img" src="" class="w-full h-full object-cover">
+                <!-- Gradasi gelap agar menyatu dengan latar belakang -->
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/95 to-transparent"></div>
+            </div>
+            
+            <!-- Header Judul (Statis, tidak ikut ter-scroll) -->
+            <div class="px-6 md:px-8 relative z-10 -mt-10 pb-4 border-b border-slate-700/50 shrink-0">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-slate-800/80 text-orange-500 rounded-xl flex items-center justify-center shadow-lg border border-slate-600 backdrop-blur-md">
+                        <i id="modal-icon" class="fa-solid fa-cube text-2xl"></i>
+                    </div>
+                    <h3 id="modal-title" class="text-2xl md:text-3xl font-extrabold text-white drop-shadow-md">Judul</h3>
+                </div>
+            </div>
+            
+            <!-- Area Teks Deskripsi (Scrollable) -->
+            <div class="p-6 md:p-8 overflow-y-auto flex-1 custom-scrollbar">
+                <div id="modal-desc" class="quill-content text-slate-200 text-sm md:text-base leading-relaxed">
+                    <!-- Teks dari editor masuk ke sini -->
+                </div>
+            </div>
+            
+            <!-- Footer & Tombol Tutup Bawah (Statis) -->
+            <div class="p-4 md:px-8 border-t border-slate-700/50 shrink-0 bg-slate-900/50">
+                <button onclick="tutupModalKomp()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors shadow-lg">
+                    Tutup
+                </button>
+            </div>
+
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="bg-[#0f172a] text-white pt-16 pb-8 border-t border-white/10">
