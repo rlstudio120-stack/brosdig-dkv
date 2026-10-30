@@ -206,12 +206,76 @@ window.tutupModalKomp = () => {
     }, 300);
 };
 
+// ==========================================
+// FUNGSI MEMUAT DATA FASILITAS STUDIO
+// ==========================================
+async function loadFasilitas() {
+    const fasilitasContainer = document.getElementById('carousel-fasilitas');
+    if (!fasilitasContainer) return;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "fasilitas"));
+        let htmlContent = '';
+        
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            
+            // Kita menggunakan shrink-0 dan w-[85vw] untuk mobile, serta w-[300px] untuk desktop
+            htmlContent += `
+                <div class="shrink-0 w-[85vw] md:w-[45vw] lg:w-[320px] snap-center flex flex-col group cursor-pointer">
+                    <div class="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-4 relative bg-gray-100">
+                        <img src="${data.url_gambar}" alt="${data.judul}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        
+                        <!-- Overlay Text Mobile -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent lg:hidden flex flex-col justify-end p-5">
+                            <h3 class="text-white font-bold text-lg leading-tight mb-1">${data.judul}</h3>
+                            <p class="text-gray-300 text-xs line-clamp-2">${data.deskripsi}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Teks Desktop -->
+                    <div class="hidden lg:block px-1">
+                        <h3 class="text-xl font-bold text-[#0f172a] mb-1 group-hover:text-brand-orange transition-colors">${data.judul}</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">${data.deskripsi}</p>
+                    </div>
+                </div>
+            `;
+        });
+
+        fasilitasContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center w-full text-gray-400">Belum ada data fasilitas.</p>';
+        
+        // Aktifkan Tombol Navigasi Desktop
+        initFasilitasNavigation();
+
+    } catch (error) {
+        console.error("Gagal memuat fasilitas:", error);
+    }
+}
+
+// Fungsi Penggerak Tombol Panah Kiri/Kanan
+function initFasilitasNavigation() {
+    const carousel = document.getElementById('carousel-fasilitas');
+    const btnPrev = document.getElementById('btn-prev-fasilitas');
+    const btnNext = document.getElementById('btn-next-fasilitas');
+
+    if (carousel && btnPrev && btnNext) {
+        btnNext.addEventListener('click', () => {
+            carousel.scrollBy({ left: 320, behavior: 'smooth' }); // Geser ke kanan
+        });
+        btnPrev.addEventListener('click', () => {
+            carousel.scrollBy({ left: -320, behavior: 'smooth' }); // Geser ke kiri
+        });
+    }
+}
+
+
 // 4. SATUKAN SEMUA FUNGSI SAAT HALAMAN DIMUAT (Menghindari event ganda)
 document.addEventListener("DOMContentLoaded", () => {
     renderGaleri();
     loadPengaturanWeb();
     loadKompetensi();
     loadGaleriSiswa(); // Tambahan baru
+    loadFasilitas();
 });
 
 // Fungsi untuk memuat data Galeri Siswa

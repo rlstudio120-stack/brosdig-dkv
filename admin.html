@@ -212,6 +212,68 @@
                             </table>
                         </div>
                     </div>
+
+                    <!-- ========================================== -->
+                    <!-- BAGIAN MANAJEMEN FASILITAS STUDIO -->
+                    <!-- ========================================== -->
+                    <div class="mt-16 pt-10 border-t-2 border-dashed border-gray-300">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-orange-50 text-brand-orange rounded-xl flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-building text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Manajemen Fasilitas</h3>
+                                <p class="text-gray-500 text-sm">Kelola foto dan informasi fasilitas studio / praktik.</p>
+                            </div>
+                        </div>
+
+                        <!-- Form Tambah Fasilitas -->
+                        <form id="fasilitas-form" class="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Nama Fasilitas</label>
+                                    <input type="text" id="fas-judul" placeholder="Contoh: Lab Komputer Mac" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Deskripsi Singkat</label>
+                                    <input type="text" id="fas-desc" placeholder="Contoh: PC high spec untuk editing" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none">
+                                </div>
+                                
+                                <!-- Area Upload Cloudinary Fasilitas -->
+                                <div class="col-span-1 md:col-span-2 border-t border-gray-200 pt-4 mt-2">
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Upload Foto Ke Cloudinary</label>
+                                    <input type="file" id="fas-file" accept="image/png, image/jpeg, image/jpg, image/webp" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-brand-orange hover:file:bg-orange-100 cursor-pointer">
+                                    
+                                    <p id="upload-status-fas" class="text-sm mt-2 text-brand-orange font-medium hidden"></p>
+                                    <img id="img-preview-fas" src="" class="mt-3 h-32 rounded-lg border border-gray-200 object-cover hidden shadow-sm">
+                                    
+                                    <!-- Input tersembunyi penyimpanan URL -->
+                                    <input type="hidden" id="fas-img-url" required>
+                                </div>
+                            </div>
+                            
+                            <div id="fas-status" class="text-sm font-medium hidden"></div>
+
+                            <button type="submit" id="btn-save-fas" class="bg-gray-900 hover:bg-black text-white font-bold py-2.5 px-6 rounded-lg shadow transition w-full md:w-auto">
+                                Simpan Fasilitas
+                            </button>
+                        </form>
+
+                        <!-- Tabel Daftar Fasilitas -->
+                        <div class="mt-8 overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Foto & Fasilitas</th>
+                                        <th scope="col" class="px-6 py-3 text-right text-xs font-bold text-gray-600 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fas-table-body" class="bg-white divide-y divide-gray-200">
+                                    <tr><td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500 animate-pulse">Memuat data fasilitas...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 
                 </div>
             </div>
@@ -257,6 +319,8 @@
                 dashboardSection.classList.remove('hidden');
                 loadDashboardData();
                 loadAdminKompetensi(); 
+                loadAdminGaleri();
+                loadAdminFasilitas();
             } else {
                 loginSection.classList.remove('hidden');
                 dashboardSection.classList.add('hidden');
@@ -462,18 +526,21 @@
         }
 
         // ==========================================
-        // LOGIKA CRUD GALERI SISWA & CLOUDINARY
+        // KONFIGURASI CLOUDINARY (GLOBAL)
         // ==========================================
-        // TODO: Ganti dengan Cloud Name dan Upload Preset Anda!
+        // WAJIB DIISI: Ganti dengan data akun Cloudinary Anda!
         const CLOUD_NAME = "h8p2mssb"; 
-        const UPLOAD_PRESET = "galeri_dkv"; // Contoh: galeri_dkv
+        const UPLOAD_PRESET = "galeri_dkv"; 
 
+
+        // ==========================================
+        // LOGIKA CRUD GALERI SISWA
+        // ==========================================
         const galForm = document.getElementById('galeri-form');
         const galStatus = document.getElementById('gal-status');
         const btnSaveGal = document.getElementById('btn-save-gal');
         const galTableBody = document.getElementById('gal-table-body');
         
-        // Variabel Cloudinary
         const galFileInput = document.getElementById('gal-file');
         const uploadStatus = document.getElementById('upload-status');
         const galImgUrl = document.getElementById('gal-img-url');
@@ -481,7 +548,7 @@
 
         let editGalId = null;
 
-        // 1. Proses Otomatis Upload ke Cloudinary saat File Dipilih
+        // 1. Upload Cloudinary Galeri
         if(galFileInput) {
             galFileInput.addEventListener('change', async (e) => {
                 const file = e.target.files[0];
@@ -523,7 +590,7 @@
             });
         }
 
-        // 2. Fungsi Memuat Tabel
+        // 2. Load Tabel Galeri
         async function loadAdminGaleri() {
             if (!galTableBody) return;
             try {
@@ -568,7 +635,7 @@
             }
         }
 
-        // 3. Fungsi Tombol Tabel (Edit & Hapus)
+        // 3. Tombol Edit & Hapus Galeri
         if (galTableBody) {
             galTableBody.addEventListener('click', async (e) => {
                 const btn = e.target.closest('button');
@@ -581,7 +648,6 @@
                     document.getElementById('gal-kategori').value = btn.dataset.kat;
                     document.getElementById('gal-desc').value = btn.dataset.desc;
                     
-                    // Kembalikan URL foto ke form dan tampilkan previewnya
                     galImgUrl.value = btn.dataset.img;
                     imgPreview.src = btn.dataset.img;
                     imgPreview.classList.remove('hidden');
@@ -603,7 +669,7 @@
             });
         }
 
-        // 4. Proses Simpan Data ke Firestore
+        // 4. Submit Data Galeri ke Firestore
         if (galForm) {
             galForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -615,7 +681,7 @@
                         judul: document.getElementById('gal-judul').value,
                         kategori: document.getElementById('gal-kategori').value,
                         deskripsi: document.getElementById('gal-desc').value,
-                        url_gambar: galImgUrl.value, // Mengambil nilai dari input tersembunyi
+                        url_gambar: galImgUrl.value, 
                         terakhir_diupdate: new Date().toISOString()
                     };
 
@@ -630,7 +696,6 @@
                     galStatus.innerText = "Foto berhasil disimpan!";
                     galStatus.className = "text-sm font-medium text-green-600 block mt-2";
                     
-                    // Bersihkan form dan preview setelah sukses
                     galForm.reset();
                     galImgUrl.value = '';
                     imgPreview.classList.add('hidden');
@@ -646,6 +711,180 @@
                 } finally {
                     btnSaveGal.disabled = false;
                     setTimeout(() => { galStatus.classList.add('hidden'); }, 3000);
+                }
+            });
+        }
+
+
+        // ==========================================
+        // LOGIKA CRUD FASILITAS STUDIO
+        // ==========================================
+        const fasForm = document.getElementById('fasilitas-form');
+        const fasStatus = document.getElementById('fas-status');
+        const btnSaveFas = document.getElementById('btn-save-fas');
+        const fasTableBody = document.getElementById('fas-table-body');
+        
+        const fasFileInput = document.getElementById('fas-file');
+        const uploadStatusFas = document.getElementById('upload-status-fas');
+        const fasImgUrl = document.getElementById('fas-img-url');
+        const imgPreviewFas = document.getElementById('img-preview-fas');
+
+        let editFasId = null;
+
+        // 1. Upload Cloudinary Fasilitas
+        if(fasFileInput) {
+            fasFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                btnSaveFas.disabled = true;
+                uploadStatusFas.classList.remove('hidden');
+                uploadStatusFas.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Sedang mengunggah...';
+                uploadStatusFas.className = "text-sm mt-2 text-brand-orange font-medium block";
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', UPLOAD_PRESET); 
+                formData.append('folder', 'brosur-dkv-2027'); 
+
+                try {
+                    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    
+                    if (data.secure_url) {
+                        fasImgUrl.value = data.secure_url; 
+                        imgPreviewFas.src = data.secure_url;  
+                        imgPreviewFas.classList.remove('hidden');
+                        
+                        uploadStatusFas.innerHTML = '<i class="fa-solid fa-check text-green-500 mr-1"></i> Berhasil diunggah!';
+                        uploadStatusFas.classList.replace('text-brand-orange', 'text-green-600');
+                    } else {
+                        throw new Error("Gagal mendapatkan URL.");
+                    }
+                } catch (error) {
+                    uploadStatusFas.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Gagal: ' + error.message;
+                    uploadStatusFas.classList.replace('text-brand-orange', 'text-red-600');
+                } finally {
+                    btnSaveFas.disabled = false;
+                }
+            });
+        }
+
+        // 2. Load Tabel Fasilitas
+        async function loadAdminFasilitas() {
+            if (!fasTableBody) return;
+            try {
+                const querySnapshot = await getDocs(collection(db, "fasilitas"));
+                let html = '';
+                
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+
+                    html += `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="h-12 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                        <img class="h-full w-full object-cover" src="${data.url_gambar}" alt="">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-bold text-gray-900">${data.judul}</div>
+                                        <div class="text-xs text-gray-500 max-w-[250px] truncate">${data.deskripsi}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button data-id="${id}" data-action="edit" data-judul="${data.judul}" data-desc="${data.deskripsi}" data-img="${data.url_gambar}" class="text-blue-600 hover:text-blue-900 mr-4 font-bold">Edit</button>
+                                <button data-id="${id}" data-action="delete" class="text-red-600 hover:text-red-900 font-bold">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                fasTableBody.innerHTML = html !== '' ? html : '<tr><td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500">Belum ada data fasilitas.</td></tr>';
+            } catch (error) {
+                fasTableBody.innerHTML = `<tr><td colspan="2" class="px-6 py-4 text-center text-sm text-red-500">Gagal memuat data.</td></tr>`;
+            }
+        }
+
+        // 3. Tombol Edit & Hapus Fasilitas
+        if (fasTableBody) {
+            fasTableBody.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const id = btn.dataset.id;
+                const action = btn.dataset.action;
+
+                if (action === 'edit') {
+                    document.getElementById('fas-judul').value = btn.dataset.judul;
+                    document.getElementById('fas-desc').value = btn.dataset.desc;
+                    
+                    fasImgUrl.value = btn.dataset.img;
+                    imgPreviewFas.src = btn.dataset.img;
+                    imgPreviewFas.classList.remove('hidden');
+                    uploadStatusFas.classList.add('hidden');
+                    
+                    editFasId = id;
+                    btnSaveFas.innerText = 'Update Fasilitas';
+                    btnSaveFas.classList.replace('bg-gray-900', 'bg-brand-orange');
+                    btnSaveFas.classList.replace('hover:bg-black', 'hover:bg-orange-600');
+                    document.getElementById('fasilitas-form').scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                if (action === 'delete') {
+                    if (confirm('Yakin ingin menghapus fasilitas ini?')) {
+                        await deleteDoc(doc(db, "fasilitas", id));
+                        loadAdminFasilitas();
+                    }
+                }
+            });
+        }
+
+        // 4. Submit Data Fasilitas ke Firestore
+        if (fasForm) {
+            fasForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnSaveFas.disabled = true;
+                btnSaveFas.innerText = 'Menyimpan...';
+                
+                try {
+                    const dataObj = {
+                        judul: document.getElementById('fas-judul').value,
+                        deskripsi: document.getElementById('fas-desc').value,
+                        url_gambar: fasImgUrl.value,
+                        terakhir_diupdate: new Date().toISOString()
+                    };
+
+                    if (editFasId) {
+                        await updateDoc(doc(db, "fasilitas", editFasId), dataObj);
+                        editFasId = null;
+                    } else {
+                        dataObj.waktu_dibuat = new Date().toISOString();
+                        await addDoc(collection(db, "fasilitas"), dataObj);
+                    }
+
+                    fasStatus.innerText = "Fasilitas berhasil disimpan!";
+                    fasStatus.className = "text-sm font-medium text-green-600 block mt-2";
+                    
+                    fasForm.reset();
+                    fasImgUrl.value = '';
+                    imgPreviewFas.classList.add('hidden');
+                    uploadStatusFas.classList.add('hidden');
+                    
+                    btnSaveFas.innerText = 'Simpan Fasilitas';
+                    btnSaveFas.classList.replace('bg-brand-orange', 'bg-gray-900');
+                    btnSaveFas.classList.replace('hover:bg-orange-600', 'hover:bg-black');
+                    loadAdminFasilitas();
+                } catch (error) {
+                    fasStatus.innerText = "Error: " + error.message;
+                    fasStatus.className = "text-sm font-medium text-red-600 block mt-2";
+                } finally {
+                    btnSaveFas.disabled = false;
+                    setTimeout(() => { fasStatus.classList.add('hidden'); }, 3000);
                 }
             });
         }
