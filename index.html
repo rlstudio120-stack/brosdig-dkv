@@ -328,16 +328,25 @@
                     </div>
                 </div>
 
-                <!-- KOLOM KANAN: Kata Alumni -->
-                <div class="lg:col-span-7">
-                    <h3 class="text-blue-900 font-bold text-center lg:text-left mb-6">Kata Alumni</h3>
-                    
-                    <!-- Container JS Alumni -->
-                    <div id="alumni-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                        <div class="col-span-full text-center py-4 text-gray-500 animate-pulse text-sm">Memuat data alumni...</div>
-                    </div>
-                </div>
+                <!-- KATA ALUMNI / TESTIMONI -->
+    <section id="alumni" class="py-20 bg-gray-50 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-16">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">Kata Alumni</h2>
+                <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">Cerita dan pengalaman mereka yang telah berkarya di industri kreatif.</p>
+            </div>
 
+            <!-- Pembungkus Carousel yang menyembunyikan scrollbar -->
+            <div class="w-full overflow-hidden">
+                <!-- Container Carousel (ID: alumni-container) -->
+                <div id="alumni-container" class="flex gap-4 lg:gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth pb-4">
+                    
+                    <div class="w-full text-center py-10">
+                        <p class="text-gray-500 animate-pulse font-medium">Memuat data alumni...</p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>

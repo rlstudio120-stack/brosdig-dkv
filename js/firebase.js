@@ -371,37 +371,84 @@ async function loadKarir() {
     }
 }
 
+// ==========================================
+// FUNGSI MEMUAT DATA ALUMNI (AUTO-SLIDE)
+// ==========================================
 async function loadAlumni() {
     const alumniContainer = document.getElementById('alumni-container');
     if (!alumniContainer) return;
 
     try {
-        const querySnapshot = await getDocs(collection(db, "alumni"));
+        // Sesuaikan nama koleksi dengan database Anda (misal: "alumni" atau "testimoni")
+        const querySnapshot = await getDocs(collection(db, "alumni")); 
         let htmlContent = '';
         
         querySnapshot.forEach((doc) => {
             const data = doc.data();
+            
+            // Lebar diatur: w-full (1 per layar HP), lg:w-[calc(33.333%-1rem)] (3 per layar Desktop)
             htmlContent += `
-                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative hover:shadow-md transition-shadow">
-                    <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
-                    <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
-                        "${data.pesan}"
+                <div class="shrink-0 w-full lg:w-[calc(33.333%-1rem)] snap-center bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
+                    <i class="fa-solid fa-quote-left text-brand-orange text-3xl mb-4 opacity-20"></i>
+                    
+                    <p class="text-gray-600 text-sm lg:text-base italic mb-6 flex-grow">
+                        "${data.pesan || data.testimoni}"
                     </p>
-                    <div class="flex items-center gap-3">
-                        <img src="${data.url_gambar}" alt="${data.nama}" class="w-10 h-10 rounded-full object-cover border border-gray-200">
+                    
+                    <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-50">
+                        <img src="${data.url_gambar}" alt="${data.nama}" class="w-12 h-12 rounded-full object-cover border-2 border-gray-100">
                         <div>
-                            <h4 class="text-[#0f172a] font-bold text-sm">${data.nama}</h4>
-                            <p class="text-gray-400 text-[10px] sm:text-xs font-medium">${data.profesi}</p>
+                            <h4 class="font-bold text-[#0f172a] text-sm">${data.nama}</h4>
+                            <p class="text-brand-orange text-xs font-medium">${data.pekerjaan || data.profesi}</p>
                         </div>
                     </div>
                 </div>
             `;
         });
 
-        alumniContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center col-span-full text-gray-400 text-sm">Belum ada data alumni.</p>';
+        alumniContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center w-full text-gray-400">Belum ada data alumni.</p>';
+        
+        // Jalankan slide otomatis jika data sudah dimuat
+        if (querySnapshot.size > 0) {
+            initAutoSlideAlumni(querySnapshot.size);
+        }
+
     } catch (error) {
         console.error("Gagal memuat alumni:", error);
     }
+}
+
+// Fungsi Logika Geser Otomatis
+function initAutoSlideAlumni(totalItems) {
+    const container = document.getElementById('alumni-container');
+    let currentIndex = 0;
+    
+    // Interval geser setiap 4 detik (4000 milidetik)
+    setInterval(() => {
+        // Deteksi layar: apakah desktop (>= 1024px) atau mobile?
+        const isDesktop = window.innerWidth >= 1024;
+        const itemsVisible = isDesktop ? 3 : 1;
+        
+        // Hentikan fungsi jika jumlah kartu lebih sedikit dari jatah layar
+        if (totalItems <= itemsVisible) return;
+
+        currentIndex++;
+        
+        // Jika sudah mencapai kartu terakhir, kembalikan ke awal
+        if (currentIndex > totalItems - itemsVisible) {
+            currentIndex = 0;
+        }
+        
+        // Hitung lebar 1 kartu beserta jaraknya (gap)
+        const cardWidth = container.scrollWidth / totalItems;
+        
+        // Eksekusi pergeseran secara mulus
+        container.scrollTo({
+            left: currentIndex * cardWidth,
+            behavior: 'smooth'
+        });
+        
+    }, 4000); 
 }
 
 // ==========================================
