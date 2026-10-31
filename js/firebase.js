@@ -244,7 +244,8 @@ window.tutupModalKomp = () => {
 // FUNGSI MEMUAT DATA FASILITAS STUDIO
 // ==========================================
 async function loadFasilitas() {
-    const fasilitasContainer = document.getElementById('carousel-fasilitas');
+    // ID disesuaikan dengan HTML baru
+    const fasilitasContainer = document.getElementById('fasilitas-container');
     if (!fasilitasContainer) return;
 
     try {
@@ -253,21 +254,17 @@ async function loadFasilitas() {
         
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            
-            // Kita menggunakan shrink-0 dan w-[85vw] untuk mobile, serta w-[300px] untuk desktop
             htmlContent += `
                 <div class="shrink-0 w-[85vw] md:w-[45vw] lg:w-[320px] snap-center flex flex-col group cursor-pointer">
                     <div class="w-full h-48 md:h-56 rounded-2xl overflow-hidden mb-4 relative bg-gray-100">
                         <img src="${data.url_gambar}" alt="${data.judul}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         
-                        <!-- Overlay Text Mobile -->
                         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent lg:hidden flex flex-col justify-end p-5">
                             <h3 class="text-white font-bold text-lg leading-tight mb-1">${data.judul}</h3>
                             <p class="text-gray-300 text-xs line-clamp-2">${data.deskripsi}</p>
                         </div>
                     </div>
                     
-                    <!-- Teks Desktop -->
                     <div class="hidden lg:block px-1">
                         <h3 class="text-xl font-bold text-[#0f172a] mb-1 group-hover:text-brand-orange transition-colors">${data.judul}</h3>
                         <p class="text-gray-500 text-sm line-clamp-2">${data.deskripsi}</p>
@@ -281,6 +278,51 @@ async function loadFasilitas() {
         // Aktifkan Tombol Navigasi Desktop
         initFasilitasNavigation();
 
+        // ==========================================
+        // TAMBAHAN: LOGIKA TITIK INDIKATOR FASILITAS
+        // ==========================================
+        const dotsFasContainer = document.getElementById('fasilitas-dots');
+        if (dotsFasContainer && querySnapshot.size > 0) {
+            const totalItems = querySnapshot.size;
+            let dotsHtml = '';
+            
+            // Buat titik indikator yang bisa diklik
+            for (let i = 0; i < totalItems; i++) {
+                dotsHtml += `<button class="dot-fasilitas h-2 rounded-full transition-all duration-300 focus:outline-none ${i === 0 ? 'w-6 bg-brand-orange' : 'w-2 bg-gray-300'}"></button>`;
+            }
+            dotsFasContainer.innerHTML = dotsHtml;
+            
+            const dots = dotsFasContainer.querySelectorAll('.dot-fasilitas');
+            
+            // 1. Ubah warna titik saat layar digeser (scroll)
+            fasilitasContainer.addEventListener('scroll', () => {
+                const scrollLeft = fasilitasContainer.scrollLeft;
+                const cardWidth = fasilitasContainer.scrollWidth / totalItems; 
+                let activeIndex = Math.round(scrollLeft / cardWidth);
+                
+                if (activeIndex >= totalItems) activeIndex = totalItems - 1;
+                
+                dots.forEach((dot, index) => {
+                    if (index === activeIndex) {
+                        dot.className = 'dot-fasilitas h-2 rounded-full transition-all duration-300 focus:outline-none w-6 bg-brand-orange';
+                    } else {
+                        dot.className = 'dot-fasilitas h-2 rounded-full transition-all duration-300 focus:outline-none w-2 bg-gray-300';
+                    }
+                });
+            });
+
+            // 2. Geser gambar saat titik diklik
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    const cardWidth = fasilitasContainer.scrollWidth / totalItems;
+                    fasilitasContainer.scrollTo({
+                        left: index * cardWidth,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+
     } catch (error) {
         console.error("Gagal memuat fasilitas:", error);
     }
@@ -288,7 +330,8 @@ async function loadFasilitas() {
 
 // Fungsi Penggerak Tombol Panah Kiri/Kanan
 function initFasilitasNavigation() {
-    const carousel = document.getElementById('carousel-fasilitas');
+    // ID disesuaikan dengan HTML baru
+    const carousel = document.getElementById('fasilitas-container');
     const btnPrev = document.getElementById('btn-prev-fasilitas');
     const btnNext = document.getElementById('btn-next-fasilitas');
 
@@ -301,7 +344,6 @@ function initFasilitasNavigation() {
         });
     }
 }
-
 // ==========================================
 // FUNGSI MEMUAT DATA KARIR & ALUMNI
 // ==========================================
