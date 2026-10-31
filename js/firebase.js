@@ -406,11 +406,49 @@ async function loadAlumni() {
             `;
         });
 
+        // ... (kode perulangan htmlContent sebelumnya tetap sama) ...
         alumniContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center w-full text-gray-400">Belum ada data alumni.</p>';
         
-        // Jalankan slide otomatis jika data sudah dimuat
+        // Jika data ada, buat titik dan jalankan slide otomatis
         if (querySnapshot.size > 0) {
-            initAutoSlideAlumni(querySnapshot.size);
+            const totalItems = querySnapshot.size;
+            const dotsContainer = document.getElementById('alumni-dots');
+            
+            if (dotsContainer) {
+                let dotsHtml = '';
+                for (let i = 0; i < totalItems; i++) {
+                    dotsHtml += `<button class="dot-alumni h-2 rounded-full transition-all duration-300 focus:outline-none ${i === 0 ? 'w-6 bg-brand-orange' : 'w-2 bg-gray-300'}"></button>`;
+                }
+                dotsContainer.innerHTML = dotsHtml;
+
+                const dots = dotsContainer.querySelectorAll('.dot-alumni');
+                
+                // Ubah warna titik saat digeser
+                alumniContainer.addEventListener('scroll', () => {
+                    const cardWidth = alumniContainer.scrollWidth / totalItems;
+                    let activeIndex = Math.round(alumniContainer.scrollLeft / cardWidth);
+                    if (activeIndex >= totalItems) activeIndex = totalItems - 1;
+                    
+                    dots.forEach((dot, index) => {
+                        dot.className = index === activeIndex 
+                            ? 'dot-alumni h-2 rounded-full transition-all duration-300 focus:outline-none w-6 bg-brand-orange'
+                            : 'dot-alumni h-2 rounded-full transition-all duration-300 focus:outline-none w-2 bg-gray-300';
+                    });
+                });
+
+                // Klik titik untuk menggeser
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        const cardWidth = alumniContainer.scrollWidth / totalItems;
+                        alumniContainer.scrollTo({
+                            left: index * cardWidth,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            }
+
+            initAutoSlideAlumni(totalItems);
         }
 
     } catch (error) {
@@ -421,34 +459,28 @@ async function loadAlumni() {
 // Fungsi Logika Geser Otomatis
 function initAutoSlideAlumni(totalItems) {
     const container = document.getElementById('alumni-container');
-    let currentIndex = 0;
     
-    // Interval geser setiap 4 detik (4000 milidetik)
+    // Interval diperlama menjadi 7000 milidetik (7 detik)
     setInterval(() => {
-        // Deteksi layar: apakah desktop (>= 1024px) atau mobile?
         const isDesktop = window.innerWidth >= 1024;
         const itemsVisible = isDesktop ? 3 : 1;
         
-        // Hentikan fungsi jika jumlah kartu lebih sedikit dari jatah layar
         if (totalItems <= itemsVisible) return;
 
-        currentIndex++;
+        const cardWidth = container.scrollWidth / totalItems;
+        // Baca posisi index saat ini (antisipasi jika pengunjung menggeser manual)
+        let currentIndex = Math.round(container.scrollLeft / cardWidth) + 1;
         
-        // Jika sudah mencapai kartu terakhir, kembalikan ke awal
         if (currentIndex > totalItems - itemsVisible) {
             currentIndex = 0;
         }
         
-        // Hitung lebar 1 kartu beserta jaraknya (gap)
-        const cardWidth = container.scrollWidth / totalItems;
-        
-        // Eksekusi pergeseran secara mulus
         container.scrollTo({
             left: currentIndex * cardWidth,
             behavior: 'smooth'
         });
         
-    }, 4000); 
+    }, 7000); 
 }
 
 // ==========================================
