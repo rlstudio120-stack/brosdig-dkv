@@ -119,6 +119,41 @@ async function loadKompetensi() {
 
         kompContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center col-span-4 text-slate-400">Belum ada data kompetensi ditambahkan.</p>';
 
+        // KODE LOGIKA TITIK INDIKATOR SLIDE MOBILE
+        const carousel = document.getElementById('kompetensi-container');
+        const dotsContainer = document.getElementById('kompetensi-dots');
+        
+        if (carousel && dotsContainer) {
+            const totalItems = querySnapshot.size;
+            let dotsHtml = '';
+            
+            // Buat titik sejumlah data (titik pertama aktif)
+            for (let i = 0; i < totalItems; i++) {
+                dotsHtml += `<div class="dot-komp h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-6 bg-brand-orange' : 'w-2 bg-gray-300'}"></div>`;
+            }
+            dotsContainer.innerHTML = dotsHtml;
+            
+            // Deteksi geseran untuk mengubah warna titik
+            const dots = dotsContainer.querySelectorAll('.dot-komp');
+            carousel.addEventListener('scroll', () => {
+                const scrollLeft = carousel.scrollLeft;
+                // Asumsi ukuran 1 elemen (lebar + jarak)
+                const cardWidth = carousel.scrollWidth / totalItems; 
+                let activeIndex = Math.round(scrollLeft / cardWidth);
+                
+                // Pastikan index tidak meleset dari batas array
+                if (activeIndex >= totalItems) activeIndex = totalItems - 1;
+                
+                dots.forEach((dot, index) => {
+                    if (index === activeIndex) {
+                        dot.className = 'dot-komp h-2 rounded-full transition-all duration-300 w-6 bg-brand-orange';
+                    } else {
+                        dot.className = 'dot-komp h-2 rounded-full transition-all duration-300 w-2 bg-gray-300';
+                    }
+                });
+            });
+        }
+
         // Logika Tarik Mouse (Drag to Scroll)
         let isDown = false;
         let startX;
@@ -327,6 +362,37 @@ async function loadAlumni() {
     }
 }
 
+// ==========================================
+// FUNGSI POPUP (MODAL) GALERI SISAWA
+// ==========================================
+window.openModalGaleri = function(imgUrl, judul, deskripsi) {
+    document.getElementById('modal-galeri-img').src = imgUrl;
+    document.getElementById('modal-galeri-judul').innerText = judul;
+    // Menambahkan pengisian deskripsi ke dalam modal
+    document.getElementById('modal-galeri-desc').innerText = deskripsi;
+    
+    const modal = document.getElementById('modal-galeri');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.children[0].classList.remove('scale-95');
+    }, 10);
+};
+
+window.closeModalGaleri = function() {
+    const modal = document.getElementById('modal-galeri');
+    modal.classList.add('opacity-0');
+    modal.children[0].classList.add('scale-95');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.getElementById('modal-galeri-img').src = ""; // Kosongkan saat ditutup
+    }, 300);
+};
+
 
 // 4. SATUKAN SEMUA FUNGSI SAAT HALAMAN DIMUAT (Menghindari event ganda)
 document.addEventListener("DOMContentLoaded", () => {
@@ -350,14 +416,23 @@ async function loadGaleriSiswa() {
         
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            // Setiap kartu diberi atribut data-category untuk kebutuhan filter
+            
+            // Mengamankan tanda kutip tunggal agar tidak merusak sintaks onclick
+            const safeJudul = data.judul ? data.judul.replace(/'/g, "\\'") : '';
+            const safeDeskripsi = data.deskripsi ? data.deskripsi.replace(/'/g, "\\'") : '';
+            
             htmlContent += `
-                <div class="gallery-item relative rounded-2xl overflow-hidden cursor-pointer bg-slate-900 aspect-square group transition-all duration-300" data-category="${data.kategori}">
-                    <img src="${data.url_gambar}" alt="${data.judul}" class="w-full h-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-100 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                        <span class="text-brand-orange text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1">${data.kategori}</span>
-                        <h4 class="text-white font-bold text-sm md:text-base leading-tight mb-1">${data.judul}</h4>
-                        <p class="text-gray-300 text-xs line-clamp-2">${data.deskripsi}</p>
+                <!-- Tambahkan parameter ke-3 (safeDeskripsi) pada onclick -->
+                <div onclick="openModalGaleri('${data.url_gambar}', '${safeJudul}', '${safeDeskripsi}')" class="group cursor-pointer rounded-2xl overflow-hidden relative shadow-sm border border-gray-100 bg-white">
+                    <div class="relative h-48 lg:h-64 w-full overflow-hidden">
+                        <img src="${data.url_gambar}" alt="${data.judul}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <span class="text-white font-bold text-sm bg-brand-orange px-3 py-1 rounded-full w-max mb-2">Lihat Detail</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-brand-orange transition-colors">${data.judul}</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2">${data.deskripsi}</p>
                     </div>
                 </div>
             `;

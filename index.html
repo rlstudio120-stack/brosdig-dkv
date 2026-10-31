@@ -212,14 +212,19 @@
                 </p>
             </div>
 
-            <!-- Container Carousel: Diberi flex-row dan overflow-x-auto murni -->
-            <div id="kompetensi-container" class="flex flex-row overflow-x-auto lg:grid lg:grid-cols-4 gap-6 px-6 lg:px-16 pb-12 snap-x snap-mandatory hide-scrollbar w-full">
+            <!-- Container Carousel -->
+            <div id="kompetensi-container" class="flex flex-row overflow-x-auto lg:grid lg:grid-cols-4 gap-6 px-6 lg:px-16 pb-4 lg:pb-12 snap-x snap-mandatory hide-scrollbar w-full">
                 
                 <!-- Teks loading -->
-                <div class="w-full text-center py-10">
+                <div class="w-full text-center py-10 lg:col-span-4">
                     <p class="text-slate-400 animate-pulse font-medium">Memuat kompetensi keahlian...</p>
                 </div>
 
+            </div>
+            
+            <!-- Indikator Slide (Hanya muncul di Mobile) -->
+            <div id="kompetensi-dots" class="flex justify-center items-center gap-2 mb-8 lg:hidden">
+                <!-- Titik-titik otomatis dibuat oleh JavaScript -->
             </div>
             
         </div>
@@ -549,5 +554,29 @@
             });
         });
     </script>
+
+    <!-- MODAL POPUP GALERI KARYA -->
+    <div id="modal-galeri" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#0f172a]/95 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
+        <!-- Container Utama (Background Hitam agar gambar tajam) -->
+        <div class="relative w-full max-w-4xl overflow-hidden flex flex-col scale-95 transition-transform duration-300 rounded-2xl shadow-2xl bg-black">
+            
+            <!-- Tombol Tutup -->
+            <button onclick="closeModalGaleri()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-black/60 text-white rounded-full flex items-center justify-center hover:bg-brand-orange transition shadow-lg">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            
+            <!-- Area Gambar & Teks -->
+            <div class="w-full max-h-[85vh] flex items-center justify-center relative">
+                <img id="modal-galeri-img" src="" class="w-full h-auto max-h-[85vh] object-contain">
+                
+                <!-- Area Judul & Deskripsi (Gelap Transparan bergaya Glassmorphism) -->
+                <div class="absolute bottom-0 w-full p-6 pt-12 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent">
+                    <h3 id="modal-galeri-judul" class="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-md"></h3>
+                    <p id="modal-galeri-desc" class="text-gray-300 text-sm lg:text-base drop-shadow max-w-3xl"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
   </body>
 </html>
