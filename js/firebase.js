@@ -420,9 +420,11 @@ async function loadGaleriSiswa() {
             // Mengamankan tanda kutip agar tidak merusak fungsi klik
             const safeJudul = data.judul ? data.judul.replace(/'/g, "\\'") : '';
             const safeDeskripsi = data.deskripsi ? data.deskripsi.replace(/'/g, "\\'") : '';
+            // Mengamankan format teks kategori untuk class CSS (misal: "Praktik Siswa" menjadi "praktik-siswa")
+            const classKategori = data.kategori ? data.kategori.toLowerCase().replace(/\s+/g, '-') : '';
             
             htmlContent += `
-                <div onclick="openModalGaleri('${data.url_gambar}', '${safeJudul}', '${safeDeskripsi}')" class="group relative cursor-pointer rounded-2xl overflow-hidden shadow-md h-64 lg:h-80 w-full">
+                <div data-kategori="${data.kategori}" onclick="openModalGaleri('${data.url_gambar}', '${safeJudul}', '${safeDeskripsi}')" class="galeri-item ${classKategori} ${data.kategori} group relative cursor-pointer rounded-2xl overflow-hidden shadow-md h-64 lg:h-80 w-full">
                     
                     <!-- Gambar Latar -->
                     <img src="${data.url_gambar}" alt="${data.judul}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
@@ -461,9 +463,11 @@ async function loadGaleriSiswa() {
 }
 
 // Fungsi Filter Kategori Galeri
+// Fungsi Filter Kategori Galeri
 function initGalleryFilter() {
+    // UBAH: .gallery-item menjadi .galeri-item
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryItems = document.querySelectorAll('.galeri-item');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -479,13 +483,19 @@ function initGalleryFilter() {
 
             // Sembunyikan atau tampilkan kartu berdasarkan kategori
             galleryItems.forEach(item => {
-                if (filterValue === 'semua' || item.getAttribute('data-category') === filterValue) {
+                // UBAH: data-category menjadi data-kategori
+                if (filterValue === 'semua' || item.getAttribute('data-kategori') === filterValue) {
                     item.style.display = 'block';
-                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 10);
+                    setTimeout(() => { 
+                        item.style.opacity = '1'; 
+                        item.style.transform = 'scale(1)'; 
+                    }, 10);
                 } else {
                     item.style.opacity = '0';
                     item.style.transform = 'scale(0.9)';
-                    setTimeout(() => { item.style.display = 'none'; }, 300); // Tunggu animasi selesai
+                    setTimeout(() => { 
+                        item.style.display = 'none'; 
+                    }, 300);
                 }
             });
         });
