@@ -268,6 +268,66 @@ function initFasilitasNavigation() {
     }
 }
 
+// ==========================================
+// FUNGSI MEMUAT DATA KARIR & ALUMNI
+// ==========================================
+async function loadKarir() {
+    const karirContainer = document.getElementById('karir-container');
+    if (!karirContainer) return;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "karir"));
+        let htmlContent = '';
+        
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            htmlContent += `
+                <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
+                    <i class="fa-solid ${data.ikon} text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
+                    <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">${data.judul}</span>
+                </div>
+            `;
+        });
+
+        karirContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center col-span-full text-gray-400 text-sm">Belum ada data karir.</p>';
+    } catch (error) {
+        console.error("Gagal memuat karir:", error);
+    }
+}
+
+async function loadAlumni() {
+    const alumniContainer = document.getElementById('alumni-container');
+    if (!alumniContainer) return;
+
+    try {
+        const querySnapshot = await getDocs(collection(db, "alumni"));
+        let htmlContent = '';
+        
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            htmlContent += `
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative hover:shadow-md transition-shadow">
+                    <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
+                    <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
+                        "${data.pesan}"
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <img src="${data.url_gambar}" alt="${data.nama}" class="w-10 h-10 rounded-full object-cover border border-gray-200">
+                        <div>
+                            <h4 class="text-[#0f172a] font-bold text-sm">${data.nama}</h4>
+                            <p class="text-gray-400 text-[10px] sm:text-xs font-medium">${data.profesi}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        alumniContainer.innerHTML = htmlContent !== '' ? htmlContent : '<p class="text-center col-span-full text-gray-400 text-sm">Belum ada data alumni.</p>';
+    } catch (error) {
+        console.error("Gagal memuat alumni:", error);
+    }
+}
+
 
 // 4. SATUKAN SEMUA FUNGSI SAAT HALAMAN DIMUAT (Menghindari event ganda)
 document.addEventListener("DOMContentLoaded", () => {
@@ -276,6 +336,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loadKompetensi();
     loadGaleriSiswa(); // Tambahan baru
     loadFasilitas();
+    loadKarir();   // <-- Pemanggilan Karir
+    loadAlumni();  // <-- Pemanggilan Alumni
 });
 
 // Fungsi untuk memuat data Galeri Siswa

@@ -307,52 +307,16 @@
                 </p>
             </div>
 
-            <!-- Grid Layout untuk Karir (Kiri) dan Testimoni (Kanan) -->
+            <!-- Grid Layout: Karir (Kiri) dan Testimoni (Kanan) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
                 
                 <!-- KOLOM KIRI: Peluang Karir -->
                 <div class="lg:col-span-5">
                     <h3 class="text-brand-orange font-bold text-center lg:text-left mb-6">Peluang Karir</h3>
                     
-                    <!-- Grid Ikon Profesi -->
-                    <div class="grid grid-cols-3 gap-3 md:gap-4">
-                        
-                        <!-- Profesi 1 -->
-                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
-                            <i class="fa-solid fa-camera-retro text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
-                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center">Fotografer</span>
-                        </div>
-
-                        <!-- Profesi 2 -->
-                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
-                            <i class="fa-solid fa-clapperboard text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
-                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center">Sutradara</span>
-                        </div>
-
-                        <!-- Profesi 3 -->
-                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
-                            <i class="fa-solid fa-tv text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
-                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Content Creator</span>
-                        </div>
-
-                        <!-- Profesi 4 -->
-                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
-                            <i class="fa-solid fa-laptop-code text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
-                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Web Developer</span>
-                        </div>
-
-                        <!-- Profesi 5 -->
-                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
-                            <i class="fa-solid fa-pen-nib text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
-                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Desainer Grafis</span>
-                        </div>
-
-                        <!-- Profesi 6 -->
-                        <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:border-blue-200 hover:shadow-md transition-all group">
-                            <i class="fa-solid fa-bullseye text-2xl lg:text-3xl text-blue-600 mb-3 group-hover:text-brand-orange transition-colors"></i>
-                            <span class="text-xs lg:text-sm font-semibold text-[#0f172a] text-center leading-tight">Digital Marketer</span>
-                        </div>
-
+                    <!-- Container JS Karir -->
+                    <div id="karir-container" class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                        <div class="col-span-full text-center py-4 text-gray-500 animate-pulse text-sm">Memuat prospek karir...</div>
                     </div>
                 </div>
 
@@ -360,54 +324,9 @@
                 <div class="lg:col-span-7">
                     <h3 class="text-blue-900 font-bold text-center lg:text-left mb-6">Kata Alumni</h3>
                     
-                    <!-- Grid Testimoni -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
-                        
-                        <!-- Testimoni 1 -->
-                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative">
-                            <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
-                            <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
-                                "DKV mengajarkan saya untuk berani berkarya. Sekarang saya bekerja sebagai videografer freelance."
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=150&auto=format&fit=crop" alt="Ahmad Fauzi" class="w-10 h-10 rounded-full object-cover">
-                                <div>
-                                    <h4 class="text-[#0f172a] font-bold text-sm">Ahmad Fauzi</h4>
-                                    <p class="text-gray-400 text-xs">Videografer Freelance</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimoni 2 -->
-                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative">
-                            <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
-                            <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
-                                "Ilmu desain yang saya dapatkan di DKV sangat berguna untuk karir saya sebagai UI/UX designer."
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" alt="Nabila Putri" class="w-10 h-10 rounded-full object-cover">
-                                <div>
-                                    <h4 class="text-[#0f172a] font-bold text-sm">Nabila Putri</h4>
-                                    <p class="text-gray-400 text-xs">UI/UX Designer di Jakarta</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimoni 3 (Span 2 kolom di HP/Tablet, 1 kolom di Desktop besar) -->
-                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative sm:col-span-2 lg:col-span-1">
-                            <i class="fa-solid fa-quote-left absolute top-6 right-6 text-3xl text-gray-100"></i>
-                            <p class="text-gray-600 text-sm italic mb-6 relative z-10 leading-relaxed">
-                                "Berkat belajar konten digital, saya bisa menjadi content creator dan bekerja dengan brand besar."
-                            </p>
-                            <div class="flex items-center gap-3">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Rizky Pratama" class="w-10 h-10 rounded-full object-cover">
-                                <div>
-                                    <h4 class="text-[#0f172a] font-bold text-sm">Rizky Pratama</h4>
-                                    <p class="text-gray-400 text-xs">Content Creator</p>
-                                </div>
-                            </div>
-                        </div>
-
+                    <!-- Container JS Alumni -->
+                    <div id="alumni-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                        <div class="col-span-full text-center py-4 text-gray-500 animate-pulse text-sm">Memuat data alumni...</div>
                     </div>
                 </div>
 
@@ -428,21 +347,21 @@
                 </p>
             </div>
 
-            <!-- Alur Pendaftaran (Timeline) -->
+            <!-- Alur Pendaftaran (Timeline) 
             <div class="mb-16">
                 <h3 class="text-[#0f172a] font-bold text-center lg:text-left mb-8">Alur Pendaftaran</h3>
                 
                 <div class="relative">
-                    <!-- Garis Penghubung Latar Belakang (Desktop: Horizontal, Mobile: Vertikal) -->
+                    
                     <div class="hidden lg:block absolute top-5 left-10 right-10 h-[2px] bg-gray-200 -z-10"></div>
                     <div class="lg:hidden absolute top-5 bottom-5 left-5 w-[2px] bg-gray-200 -z-10"></div>
 
-                    <!-- Item Timeline -->
+                    
                     <div class="flex flex-col lg:flex-row justify-between gap-8 lg:gap-4 relative z-10">
                         
-                        <!-- Step 1 -->
+                        
                         <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
-                            <!-- Garis mobile connector -->
+                            
                             <div class="lg:hidden absolute top-10 left-5 w-[2px] h-full bg-gray-200 -z-10"></div>
                             
                             <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">01</div>
@@ -452,7 +371,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 2 -->
+                        
                         <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
                             <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">02</div>
                             <div class="lg:text-center mt-1 lg:mt-0">
@@ -461,7 +380,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 3 -->
+                       
                         <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
                             <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">03</div>
                             <div class="lg:text-center mt-1 lg:mt-0">
@@ -470,7 +389,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 4 -->
+                       
                         <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
                             <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">04</div>
                             <div class="lg:text-center mt-1 lg:mt-0">
@@ -479,7 +398,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 5 -->
+                        
                         <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
                             <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">05</div>
                             <div class="lg:text-center mt-1 lg:mt-0">
@@ -490,18 +409,17 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Banner Kontak (WhatsApp & Lokasi Sekolah) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 bg-[#f8fafc] rounded-3xl p-6 lg:p-8 border border-gray-100 shadow-sm">
                 
                 <!-- Tombol WhatsApp Besar -->
-                <a id="wa-link-display" href="https://wa.me/6281234567890" target="_blank" class="flex items-center justify-between bg-brand-orange hover:bg-orange-600 text-white p-6 rounded-2xl transition-all shadow-[0_4px_20px_rgba(249,115,22,0.3)] transform hover:-translate-y-1 group">
+                <a id="wa-link-display" href="https://wa.me/6285784926661" target="_blank" class="flex items-center justify-between bg-brand-orange hover:bg-orange-600 text-white p-6 rounded-2xl transition-all shadow-[0_4px_20px_rgba(249,115,22,0.3)] transform hover:-translate-y-1 group">
                     <div class="flex items-center gap-4">
                         <i class="fa-brands fa-whatsapp text-4xl lg:text-5xl group-hover:scale-110 transition-transform"></i>
                         <div>
                             <h4 class="font-bold text-lg lg:text-xl">WhatsApp Admin</h4>
-                            <p id="wa-text-display" class="font-medium text-white/90 text-xl lg:text-2xl">0812-3456-7890</p>
                         </div>
                     </div>
                     <div class="hidden md:flex items-center gap-2 text-sm bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
@@ -517,7 +435,7 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-[#0f172a] text-sm lg:text-base">Lokasi Sekolah</h4>
-                            <p class="text-gray-500 text-xs lg:text-sm">Jl. Raya Panglegur No.10, Pamekasan, Jawa Timur</p>
+                            <p class="text-gray-500 text-xs lg:text-sm">Jl. Pintu Gerbang No.157, Pamekasan, Jawa Timur</p>
                         </div>
                     </div>
                     <!-- Placeholder untuk thumbnail peta -->

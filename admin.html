@@ -274,6 +274,121 @@
                             </table>
                         </div>
                     </div>
+
+                    <!-- ========================================== -->
+                    <!-- BAGIAN MANAJEMEN PROSPEK KARIR -->
+                    <!-- ========================================== -->
+                    <div class="mt-16 pt-10 border-t-2 border-dashed border-gray-300">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-briefcase text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Manajemen Prospek Karir</h3>
+                                <p class="text-gray-500 text-sm">Kelola daftar profesi lulusan DKV dan ikonnya.</p>
+                            </div>
+                        </div>
+
+                        <form id="karir-form" class="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Nama Profesi</label>
+                                    <input type="text" id="kar-judul" placeholder="Contoh: Graphic Designer" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Pilih Ikon (Bidang DKV)</label>
+                                    <select id="kar-ikon" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none font-sans">
+                                        <option value="fa-pen-nib">✒️ Graphic Designer / Illustrator / Visual Art</option>
+                                        <option value="fa-camera-retro">📷 Photographer / Product Photo</option>
+                                        <option value="fa-clapperboard">🎬 Videographer / Sutradara</option>
+                                        <option value="fa-scissors">✂️ Video Editor / Post-Production</option>
+                                        <option value="fa-laptop-code">💻 UI/UX Designer / Web Dev</option>
+                                        <option value="fa-cube">🧊 Animator / 3D & Motion Designer</option>
+                                        <option value="fa-hashtag">📱 Content Creator / Social Media Specialist</option>
+                                        <option value="fa-store">🏪 Creative Technopreneur / Wirausaha</option>
+                                        <option value="fa-bullseye">🎯 Digital Marketer / Strategist</option>
+                                        <option value="fa-lightbulb">💡 Creative Director / Konseptor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="kar-status" class="text-sm font-medium hidden"></div>
+                            <button type="submit" id="btn-save-kar" class="bg-gray-900 hover:bg-black text-white font-bold py-2.5 px-6 rounded-lg shadow transition w-full md:w-auto">Simpan Profesi</button>
+                        </form>
+
+                        <div class="mt-8 overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Ikon & Profesi</th>
+                                        <th scope="col" class="px-6 py-3 text-right text-xs font-bold text-gray-600 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kar-table-body" class="bg-white divide-y divide-gray-200">
+                                    <tr><td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500 animate-pulse">Memuat data karir...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- BAGIAN MANAJEMEN ALUMNI & TESTIMONI -->
+                    <!-- ========================================== -->
+                    <div class="mt-16 pt-10 border-t-2 border-dashed border-gray-300">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center shadow-sm">
+                                <i class="fa-solid fa-user-graduate text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-gray-800">Manajemen Kata Alumni</h3>
+                                <p class="text-gray-500 text-sm">Kelola testimoni dan foto profil alumni sukses.</p>
+                            </div>
+                        </div>
+
+                        <form id="alumni-form" class="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Nama Lengkap</label>
+                                    <input type="text" id="alu-nama" placeholder="Contoh: Ahmad Fauzi" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Profesi Saat Ini</label>
+                                    <input type="text" id="alu-profesi" placeholder="Contoh: UI/UX Designer di Gojek" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none">
+                                </div>
+                                
+                                <div class="col-span-1 md:col-span-2 border-t border-gray-200 pt-4 mt-2">
+                                    <label class="block text-sm font-bold text-gray-700 mb-1">Upload Foto Profil Ke Cloudinary</label>
+                                    <input type="file" id="alu-file" accept="image/png, image/jpeg, image/jpg, image/webp" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100 cursor-pointer">
+                                    
+                                    <p id="upload-status-alu" class="text-sm mt-2 text-green-600 font-medium hidden"></p>
+                                    <img id="img-preview-alu" src="" class="mt-3 h-20 w-20 rounded-full border border-gray-200 object-cover hidden shadow-sm">
+                                    <input type="hidden" id="alu-img-url" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Testimoni / Pesan</label>
+                                <textarea id="alu-pesan" rows="2" placeholder="Tuliskan pengalaman alumni saat belajar di DKV..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"></textarea>
+                            </div>
+                            
+                            <div id="alu-status" class="text-sm font-medium hidden"></div>
+
+                            <button type="submit" id="btn-save-alu" class="bg-gray-900 hover:bg-black text-white font-bold py-2.5 px-6 rounded-lg shadow transition w-full md:w-auto">Simpan Alumni</button>
+                        </form>
+
+                        <div class="mt-8 overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Profil & Testimoni</th>
+                                        <th scope="col" class="px-6 py-3 text-right text-xs font-bold text-gray-600 uppercase tracking-wider">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="alu-table-body" class="bg-white divide-y divide-gray-200">
+                                    <tr><td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500 animate-pulse">Memuat data alumni...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 
                 </div>
             </div>
@@ -321,6 +436,8 @@
                 loadAdminKompetensi(); 
                 loadAdminGaleri();
                 loadAdminFasilitas();
+                loadAdminKarir();
+                loadAdminAlumni();
             } else {
                 loginSection.classList.remove('hidden');
                 dashboardSection.classList.add('hidden');
@@ -888,6 +1005,281 @@
                 }
             });
         }
+
+        // ==========================================
+        // LOGIKA CRUD PROSPEK KARIR
+        // ==========================================
+        const karForm = document.getElementById('karir-form');
+        const karStatus = document.getElementById('kar-status');
+        const btnSaveKar = document.getElementById('btn-save-kar');
+        const karTableBody = document.getElementById('kar-table-body');
+        let editKarId = null;
+
+        async function loadAdminKarir() {
+            if (!karTableBody) return;
+            try {
+                const querySnapshot = await getDocs(collection(db, "karir"));
+                let html = '';
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center border border-purple-100">
+                                        <i class="fa-solid ${data.ikon} text-lg"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-bold text-gray-900">${data.judul}</div>
+                                        <div class="text-xs text-gray-500">${data.ikon}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button data-id="${id}" data-action="edit" data-judul="${data.judul}" data-ikon="${data.ikon}" class="text-blue-600 hover:text-blue-900 mr-4 font-bold">Edit</button>
+                                <button data-id="${id}" data-action="delete" class="text-red-600 hover:text-red-900 font-bold">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                karTableBody.innerHTML = html !== '' ? html : '<tr><td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500">Belum ada data prospek karir.</td></tr>';
+            } catch (error) {
+                karTableBody.innerHTML = `<tr><td colspan="2" class="px-6 py-4 text-center text-sm text-red-500">Gagal memuat data.</td></tr>`;
+            }
+        }
+
+        if (karTableBody) {
+            karTableBody.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const id = btn.dataset.id;
+                const action = btn.dataset.action;
+
+                if (action === 'edit') {
+                    document.getElementById('kar-judul').value = btn.dataset.judul;
+                    document.getElementById('kar-ikon').value = btn.dataset.ikon;
+                    editKarId = id;
+                    btnSaveKar.innerText = 'Update Profesi';
+                    btnSaveKar.classList.replace('bg-gray-900', 'bg-purple-600');
+                    btnSaveKar.classList.replace('hover:bg-black', 'hover:bg-purple-700');
+                    document.getElementById('karir-form').scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                if (action === 'delete') {
+                    if (confirm('Yakin ingin menghapus profesi ini?')) {
+                        await deleteDoc(doc(db, "karir", id));
+                        loadAdminKarir();
+                    }
+                }
+            });
+        }
+
+        if (karForm) {
+            karForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnSaveKar.disabled = true;
+                btnSaveKar.innerText = 'Menyimpan...';
+                
+                try {
+                    const dataObj = {
+                        judul: document.getElementById('kar-judul').value,
+                        ikon: document.getElementById('kar-ikon').value,
+                        terakhir_diupdate: new Date().toISOString()
+                    };
+
+                    if (editKarId) {
+                        await updateDoc(doc(db, "karir", editKarId), dataObj);
+                        editKarId = null;
+                    } else {
+                        dataObj.waktu_dibuat = new Date().toISOString();
+                        await addDoc(collection(db, "karir"), dataObj);
+                    }
+
+                    karStatus.innerText = "Berhasil disimpan!";
+                    karStatus.className = "text-sm font-medium text-green-600 block mt-2";
+                    karForm.reset();
+                    btnSaveKar.innerText = 'Simpan Profesi';
+                    btnSaveKar.classList.replace('bg-purple-600', 'bg-gray-900');
+                    btnSaveKar.classList.replace('hover:bg-purple-700', 'hover:bg-black');
+                    loadAdminKarir();
+                } catch (error) {
+                    karStatus.innerText = "Error: " + error.message;
+                    karStatus.className = "text-sm font-medium text-red-600 block mt-2";
+                } finally {
+                    btnSaveKar.disabled = false;
+                    setTimeout(() => { karStatus.classList.add('hidden'); }, 3000);
+                }
+            });
+        }
+
+        // ==========================================
+        // LOGIKA CRUD ALUMNI & TESTIMONI
+        // ==========================================
+        const aluForm = document.getElementById('alumni-form');
+        const aluStatus = document.getElementById('alu-status');
+        const btnSaveAlu = document.getElementById('btn-save-alu');
+        const aluTableBody = document.getElementById('alu-table-body');
+        
+        const aluFileInput = document.getElementById('alu-file');
+        const uploadStatusAlu = document.getElementById('upload-status-alu');
+        const aluImgUrl = document.getElementById('alu-img-url');
+        const imgPreviewAlu = document.getElementById('img-preview-alu');
+        let editAluId = null;
+
+        if(aluFileInput) {
+            aluFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                btnSaveAlu.disabled = true;
+                uploadStatusAlu.classList.remove('hidden');
+                uploadStatusAlu.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Sedang mengunggah...';
+                uploadStatusAlu.className = "text-sm mt-2 text-green-600 font-medium block";
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', UPLOAD_PRESET); 
+                formData.append('folder', 'brosur-dkv-2027'); 
+
+                try {
+                    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    
+                    if (data.secure_url) {
+                        aluImgUrl.value = data.secure_url; 
+                        imgPreviewAlu.src = data.secure_url;  
+                        imgPreviewAlu.classList.remove('hidden');
+                        
+                        uploadStatusAlu.innerHTML = '<i class="fa-solid fa-check text-green-500 mr-1"></i> Berhasil diunggah!';
+                    } else {
+                        throw new Error("Gagal mendapatkan URL.");
+                    }
+                } catch (error) {
+                    uploadStatusAlu.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Gagal: ' + error.message;
+                    uploadStatusAlu.classList.replace('text-green-600', 'text-red-600');
+                } finally {
+                    btnSaveAlu.disabled = false;
+                }
+            });
+        }
+
+        async function loadAdminAlumni() {
+            if (!aluTableBody) return;
+            try {
+                const querySnapshot = await getDocs(collection(db, "alumni"));
+                let html = '';
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    html += `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4">
+                                <div class="flex items-start">
+                                    <div class="h-12 w-12 flex-shrink-0 rounded-full border border-gray-200 overflow-hidden">
+                                        <img class="h-full w-full object-cover" src="${data.url_gambar}" alt="">
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-bold text-gray-900">${data.nama}</div>
+                                        <div class="text-xs text-orange-500 font-bold mb-1">${data.profesi}</div>
+                                        <div class="text-xs text-gray-500 italic max-w-sm line-clamp-2">"${data.pesan}"</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium align-top">
+                                <button data-id="${id}" data-action="edit" data-nama="${data.nama}" data-profesi="${data.profesi}" data-pesan="${data.pesan}" data-img="${data.url_gambar}" class="text-blue-600 hover:text-blue-900 mr-4 font-bold">Edit</button>
+                                <button data-id="${id}" data-action="delete" class="text-red-600 hover:text-red-900 font-bold">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                aluTableBody.innerHTML = html !== '' ? html : '<tr><td colspan="2" class="px-6 py-4 text-center text-sm text-gray-500">Belum ada data alumni.</td></tr>';
+            } catch (error) {
+                aluTableBody.innerHTML = `<tr><td colspan="2" class="px-6 py-4 text-center text-sm text-red-500">Gagal memuat data.</td></tr>`;
+            }
+        }
+
+        if (aluTableBody) {
+            aluTableBody.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const id = btn.dataset.id;
+                const action = btn.dataset.action;
+
+                if (action === 'edit') {
+                    document.getElementById('alu-nama').value = btn.dataset.nama;
+                    document.getElementById('alu-profesi').value = btn.dataset.profesi;
+                    document.getElementById('alu-pesan').value = btn.dataset.pesan;
+                    
+                    aluImgUrl.value = btn.dataset.img;
+                    imgPreviewAlu.src = btn.dataset.img;
+                    imgPreviewAlu.classList.remove('hidden');
+                    uploadStatusAlu.classList.add('hidden');
+                    
+                    editAluId = id;
+                    btnSaveAlu.innerText = 'Update Alumni';
+                    btnSaveAlu.classList.replace('bg-gray-900', 'bg-green-600');
+                    btnSaveAlu.classList.replace('hover:bg-black', 'hover:bg-green-700');
+                    document.getElementById('alumni-form').scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                if (action === 'delete') {
+                    if (confirm('Yakin ingin menghapus data alumni ini?')) {
+                        await deleteDoc(doc(db, "alumni", id));
+                        loadAdminAlumni();
+                    }
+                }
+            });
+        }
+
+        if (aluForm) {
+            aluForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnSaveAlu.disabled = true;
+                btnSaveAlu.innerText = 'Menyimpan...';
+                
+                try {
+                    const dataObj = {
+                        nama: document.getElementById('alu-nama').value,
+                        profesi: document.getElementById('alu-profesi').value,
+                        pesan: document.getElementById('alu-pesan').value,
+                        url_gambar: aluImgUrl.value,
+                        terakhir_diupdate: new Date().toISOString()
+                    };
+
+                    if (editAluId) {
+                        await updateDoc(doc(db, "alumni", editAluId), dataObj);
+                        editAluId = null;
+                    } else {
+                        dataObj.waktu_dibuat = new Date().toISOString();
+                        await addDoc(collection(db, "alumni"), dataObj);
+                    }
+
+                    aluStatus.innerText = "Alumni berhasil disimpan!";
+                    aluStatus.className = "text-sm font-medium text-green-600 block mt-2";
+                    
+                    aluForm.reset();
+                    aluImgUrl.value = '';
+                    imgPreviewAlu.classList.add('hidden');
+                    uploadStatusAlu.classList.add('hidden');
+                    
+                    btnSaveAlu.innerText = 'Simpan Alumni';
+                    btnSaveAlu.classList.replace('bg-green-600', 'bg-gray-900');
+                    btnSaveAlu.classList.replace('hover:bg-green-700', 'hover:bg-black');
+                    loadAdminAlumni();
+                } catch (error) {
+                    aluStatus.innerText = "Error: " + error.message;
+                    aluStatus.className = "text-sm font-medium text-red-600 block mt-2";
+                } finally {
+                    btnSaveAlu.disabled = false;
+                    setTimeout(() => { aluStatus.classList.add('hidden'); }, 3000);
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
