@@ -70,43 +70,56 @@
         <!-- Overlay Gradasi Gelap (Lebih gelap di kiri untuk teks, agak terang di kanan) -->
         <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-slate-900/30"></div>
 
-        <!-- NAVBAR TRANSPARAN -->
-        <nav class="relative z-50 w-full px-6 lg:px-16 py-6 flex justify-between items-center text-white">
-            <!-- Logo area -->
-            <div class="flex items-center gap-3">
-                <!-- Logo DKV placeholder (teks dengan warna oranye & biru) -->
-                <div class="text-3xl font-extrabold tracking-tighter">
-                    <span class="text-brand-orange">D</span><span class="text-blue-500">K</span><span class="text-white">V</span>
+        <!-- NAVBAR TRANSPARAN & RESPONSIF -->
+            <nav class="fixed w-full z-50 top-0 bg-[#0f172a]/95 backdrop-blur-md border-b border-white/10 transition-all duration-300 text-white">
+                <div class="px-6 lg:px-16 py-4 flex justify-between items-center w-full">
+                    
+                    <!-- Logo area -->
+                    <div class="flex items-center gap-3">
+                        <div class="text-3xl font-extrabold tracking-tighter">
+                            <span class="text-brand-orange">D</span><span class="text-blue-500">K</span><span class="text-white">V</span>
+                        </div>
+                        <div class="leading-tight border-l-2 border-white/30 pl-3">
+                            <p class="text-sm font-bold">SMK NEGERI 1</p>
+                            <p class="text-xs font-medium tracking-widest">PAMEKASAN</p>
+                        </div>
+                    </div>
+
+                    <!-- Menu Desktop -->
+                    <div class="hidden lg:flex items-center gap-8 text-sm font-semibold">
+                        <a href="#beranda" class="text-brand-orange transition">Beranda</a>
+                        <a href="#kompetensi" class="hover:text-brand-orange transition">Kompetensi</a>
+                        <a href="#galeri" class="hover:text-brand-orange transition">Galeri</a>
+                        <a href="#fasilitas" class="hover:text-brand-orange transition">Fasilitas</a>
+                        <a href="#karir" class="hover:text-brand-orange transition">Karier</a>
+                        <a href="#pendaftaran" class="hover:text-brand-orange transition">Pendaftaran</a>
+                    </div>
+
+                    <!-- Tombol CTA Desktop -->
+                    <div class="hidden lg:block">
+                        <a href="#pendaftaran" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all">
+                            Daftar Sekarang
+                        </a>
+                    </div>
+
+                    <!-- Hamburger Menu Mobile -->
+                    <button id="btn-mobile-menu" class="lg:hidden text-2xl focus:outline-none hover:text-brand-orange transition">
+                        <i class="fa-solid fa-bars" id="burger-icon"></i>
+                    </button>
                 </div>
-                <div class="leading-tight border-l-2 border-white/30 pl-3">
-                    <p class="text-sm font-bold">SMK NEGERI 1</p>
-                    <p class="text-xs font-medium tracking-widest">PAMEKASAN</p>
+
+                <!-- Menu Mobile (Ditambahkan top-full agar presisi jatuh di bawah navbar) -->
+                <div id="mobile-menu" class="hidden lg:hidden bg-[#0f172a] shadow-2xl absolute top-full left-0 w-full transition-all duration-300">
+                    <div class="px-6 pt-2 pb-8 space-y-1 flex flex-col">
+                        <a href="#beranda" class="mobile-link block px-4 py-3 text-base font-semibold text-brand-orange hover:bg-white/5 rounded-lg">Beranda</a>
+                        <a href="#kompetensi" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Kompetensi</a>
+                        <a href="#galeri" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Galeri</a>
+                        <a href="#fasilitas" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Fasilitas</a>
+                        <a href="#karir" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Karier</a>
+                        <a href="#pendaftaran" class="mobile-link block px-4 py-3 text-base font-bold text-white bg-brand-orange/80 border border-brand-orange hover:bg-brand-orange rounded-lg transition text-center mt-4">Daftar Sekarang</a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Menu Desktop -->
-            <div class="hidden lg:flex items-center gap-8 text-sm font-semibold">
-                <a href="#" class="text-brand-orange transition">Beranda</a>
-                <a href="#" class="hover:text-brand-orange transition">Kompetensi</a>
-                <a href="#" class="hover:text-brand-orange transition">Galeri</a>
-                <a href="#" class="hover:text-brand-orange transition">Fasilitas</a>
-                <a href="#" class="hover:text-brand-orange transition">Karier</a>
-                <a href="#" class="hover:text-brand-orange transition">Pendaftaran</a>
-                <a href="#" class="hover:text-brand-orange transition">Kontak</a>
-            </div>
-
-            <!-- Tombol CTA Desktop -->
-            <div class="hidden lg:block">
-                <a href="#" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all">
-                    Daftar Sekarang
-                </a>
-            </div>
-
-            <!-- Hamburger Menu Mobile -->
-            <button class="lg:hidden text-2xl focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </nav>
+            </nav>
 
         <!-- KONTEN UTAMA HERO -->
         <div class="relative z-10 w-full h-[calc(100vh-100px)] flex flex-col justify-center px-6 lg:px-16 pb-20 lg:pb-0">
@@ -115,7 +128,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-end w-full max-w-7xl mx-auto">
                 
                 <!-- Kolom Kiri: Judul dan Teks -->
-                <div class="flex flex-col justify-center max-w-2xl pt-10 lg:pt-0">
+                <div class="flex flex-col justify-center max-w-2xl pt-40 lg:pt-40">
                     <h1 class="text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-6">
                         Wujudkan <br>
                         <span class="text-brand-orange">Imajinasi</span>mu <br>
@@ -233,8 +246,7 @@
                 <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="praktik">Praktik</button>
                 <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="prestasi">Prestasi</button>
                 <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="alumni">Alumni</button>
-                <button class="filter-btn px-6 py-2 rounded-full text-sm font-semibold bg-white text-gray-600 border border-gray-200 transition-all" data-filter="karya">Karya Portofolio</button>
-            </div>
+           </div>
 
             <!-- Wadah Grid Galeri untuk JS -->
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6" id="gallery-grid">
@@ -553,11 +565,11 @@
                     <ul class="flex flex-col gap-4 text-xs text-gray-400">
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-phone mt-0.5 text-gray-300"></i>
-                            <span>(0324) 324978</span>
+                            <span>085784926661</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-envelope mt-0.5 text-gray-300"></i>
-                            <span>info@smkn1pamekasan.sch.id</span>
+                            <span>smkn1pmk.sch.id</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <i class="fa-solid fa-clock mt-0.5 text-gray-300"></i>
@@ -585,5 +597,33 @@
     
     <!-- Script Firebase (Wajib type="module") -->
     <script type="module" src="js/firebase.js"></script>
-</body>
+
+    <!-- LOGIKA UI NAVBAR & MENU MOBILE -->
+    <script>
+        const btnMobileMenu = document.getElementById('btn-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const iconBurger = document.getElementById('burger-icon');
+
+        // Buka/tutup menu saat tombol burger diklik
+        btnMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Ubah ikon burger menjadi silang (X)
+            if(mobileMenu.classList.contains('hidden')) {
+                iconBurger.className = 'fa-solid fa-bars';
+            } else {
+                iconBurger.className = 'fa-solid fa-xmark';
+            }
+        });
+
+        // Tutup menu otomatis setelah salah satu tautan diklik
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                iconBurger.className = 'fa-solid fa-bars';
+            });
+        });
+    </script>
+  </body>
 </html>
