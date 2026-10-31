@@ -50,31 +50,30 @@ async function renderGaleri() {
 }
 
 // 2. Fungsi untuk menarik teks dinamis
+// ==========================================
+// FUNGSI MEMUAT PENGATURAN WEB (WA & HERO)
+// ==========================================
 async function loadPengaturanWeb() {
     try {
-        const docRef = doc(db, "pengaturan_web", "info_utama");
-        const docSnap = await getDoc(docRef);
-
+        const docSnap = await getDoc(doc(db, "pengaturan_web", "info_utama"));
         if (docSnap.exists()) {
             const data = docSnap.data();
-
-            if (data.teks_hero) {
-                const heroDesc = document.getElementById('hero-desc-display');
-                if(heroDesc) heroDesc.innerText = data.teks_hero;
+            
+            // Set Teks Hero jika elemennya ada di index.html
+            const heroDesc = document.getElementById('teks-hero-desc');
+            if (heroDesc && data.teks_hero) {
+                heroDesc.innerText = data.teks_hero;
             }
-
-            if (data.nomor_wa) {
-                const waLink = document.getElementById('wa-link-display');
-                const waText = document.getElementById('wa-text-display');
-                
-                if(waLink) waLink.href = `https://wa.me/${data.nomor_wa}`;
-                
-                let teksWa = data.nomor_wa.startsWith('62') ? '0' + data.nomor_wa.slice(2) : data.nomor_wa;
-                if(waText) waText.innerText = teksWa;
+            
+            // Set Link WhatsApp beserta format pesannya
+            const btnWa = document.getElementById('btn-whatsapp-chat');
+            if (btnWa && data.nomor_wa) {
+                const pesan = encodeURIComponent("Halo Admin, saya ingin bertanya seputar jurusan DKV di SMKN 1 Pamekasan.");
+                btnWa.href = `https://wa.me/${data.nomor_wa}?text=${pesan}`;
             }
         }
     } catch (error) {
-        console.error("Gagal memuat pengaturan web:", error);
+        console.error("Gagal memuat pengaturan utama:", error);
     }
 }
 

@@ -92,14 +92,7 @@
                         <a href="#galeri" class="hover:text-brand-orange transition">Galeri</a>
                         <a href="#fasilitas" class="hover:text-brand-orange transition">Fasilitas</a>
                         <a href="#karir" class="hover:text-brand-orange transition">Karier</a>
-                        <a href="#pendaftaran" class="hover:text-brand-orange transition">Pendaftaran</a>
-                    </div>
-
-                    <!-- Tombol CTA Desktop -->
-                    <div class="hidden lg:block">
-                        <a href="#pendaftaran" class="bg-brand-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all">
-                            Daftar Sekarang
-                        </a>
+                        <a href="#kontak" class="hover:text-brand-orange transition">Kontak</a>
                     </div>
 
                     <!-- Hamburger Menu Mobile -->
@@ -116,7 +109,7 @@
                         <a href="#galeri" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Galeri</a>
                         <a href="#fasilitas" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Fasilitas</a>
                         <a href="#karir" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Karier</a>
-                        <a href="#pendaftaran" class="mobile-link block px-4 py-3 text-base font-bold text-white bg-brand-orange/80 border border-brand-orange hover:bg-brand-orange rounded-lg transition text-center mt-4">Daftar Sekarang</a>
+                        <a href="#kontak" class="mobile-link block px-4 py-3 text-base font-semibold text-white hover:text-brand-orange hover:bg-white/5 rounded-lg">Kontak</a>
                     </div>
                 </div>
             </nav>
@@ -142,12 +135,15 @@
                     </p>
                     
                     <!-- Grup Tombol -->
-                    <div class="flex flex-wrap items-center gap-4">
-                        <a href="#portofolio" class="bg-brand-orange hover:bg-orange-600 text-white px-8 py-3.5 rounded-full font-bold text-sm shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all transform hover:-translate-y-1">
-                            Lihat Portofolio
+                    <div class="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start relative z-10">
+                        <!-- Tombol Utama (Oranye) -->
+                        <a href="#galeri" class="bg-brand-orange hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-brand-orange/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-brand-orange/50">
+                            Lihat Galeri Karya
                         </a>
-                        <a href="#tentang" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-3.5 rounded-full font-bold text-sm transition-all transform hover:-translate-y-1 flex items-center gap-2">
-                            Kenali DKV <i class="fa-solid fa-play text-xs ml-1"></i>
+                        
+                        <!-- Tombol Sekunder (Transparan) -->
+                        <a href="#kompetensi" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:-translate-y-1 flex items-center gap-2">
+                            Kenali DKV <i class="fa-solid fa-arrow-right-long text-sm ml-1"></i>
                         </a>
                     </div>
                 </div>
@@ -345,118 +341,48 @@
             </div>
         </div>
     </section>
-    <!-- PENDAFTARAN & KONTAK -->
-    <section id="pendaftaran" class="py-20 bg-white">
+    <!-- ========================================== -->
+    <!-- BAGIAN KONTAK & LOKASI -->
+    <!-- ========================================== -->
+    <section id="kontak" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-16">
             
-            <!-- Judul Section -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-12">
                 <h2 class="text-3xl lg:text-4xl font-extrabold text-[#0f172a] mb-3">
-                    Pendaftaran & Kontak
+                    Pusat Informasi DKV
                 </h2>
                 <p class="text-gray-500 text-sm lg:text-base max-w-2xl mx-auto">
-                    Bergabunglah bersama kami dan wujudkan imajinasimu!
+                    Punya pertanyaan seputar kurikulum, fasilitas, atau prospek jurusan DKV? Jangan ragu untuk menghubungi kami atau kunjungi lokasi sekolah.
                 </p>
             </div>
 
-            <!-- Alur Pendaftaran (Timeline) 
-            <div class="mb-16">
-                <h3 class="text-[#0f172a] font-bold text-center lg:text-left mb-8">Alur Pendaftaran</h3>
-                
-                <div class="relative">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Card WhatsApp -->
+                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mb-4">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Tanya Seputar DKV</h3>
+                    <p class="text-gray-500 text-sm mb-6">Konsultasikan minat dan pertanyaan Anda langsung dengan admin program keahlian via WhatsApp.</p>
                     
-                    <div class="hidden lg:block absolute top-5 left-10 right-10 h-[2px] bg-gray-200 -z-10"></div>
-                    <div class="lg:hidden absolute top-5 bottom-5 left-5 w-[2px] bg-gray-200 -z-10"></div>
-
-                    
-                    <div class="flex flex-col lg:flex-row justify-between gap-8 lg:gap-4 relative z-10">
-                        
-                        
-                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
-                            
-                            <div class="lg:hidden absolute top-10 left-5 w-[2px] h-full bg-gray-200 -z-10"></div>
-                            
-                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">01</div>
-                            <div class="lg:text-center mt-1 lg:mt-0">
-                                <h4 class="text-blue-900 font-bold text-sm mb-1">Pendaftaran Online</h4>
-                                <p class="text-gray-400 text-xs">Isi formulir pendaftaran di website resmi</p>
-                            </div>
-                        </div>
-
-                        
-                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
-                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">02</div>
-                            <div class="lg:text-center mt-1 lg:mt-0">
-                                <h4 class="text-blue-900 font-bold text-sm mb-1">Seleksi Berkas</h4>
-                                <p class="text-gray-400 text-xs">Verifikasi dan validasi berkas pendaftaran</p>
-                            </div>
-                        </div>
-
-                       
-                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
-                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">03</div>
-                            <div class="lg:text-center mt-1 lg:mt-0">
-                                <h4 class="text-blue-900 font-bold text-sm mb-1">Tes & Wawancara</h4>
-                                <p class="text-gray-400 text-xs">Mengikuti tes minat dan wawancara</p>
-                            </div>
-                        </div>
-
-                       
-                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
-                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">04</div>
-                            <div class="lg:text-center mt-1 lg:mt-0">
-                                <h4 class="text-blue-900 font-bold text-sm mb-1">Pengumuman</h4>
-                                <p class="text-gray-400 text-xs">Pengumuman hasil seleksi</p>
-                            </div>
-                        </div>
-
-                        
-                        <div class="flex flex-row lg:flex-col items-start lg:items-center gap-4 lg:gap-3 lg:w-1/5 relative pl-12 lg:pl-0">
-                            <div class="w-10 h-10 rounded-xl bg-[#0f172a] text-white flex items-center justify-center font-bold text-sm shadow-md absolute lg:static left-0 top-0">05</div>
-                            <div class="lg:text-center mt-1 lg:mt-0">
-                                <h4 class="text-blue-900 font-bold text-sm mb-1">Daftar Ulang</h4>
-                                <p class="text-gray-400 text-xs">Melakukan daftar ulang dan pembayaran</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Banner Kontak (WhatsApp & Lokasi Sekolah) -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 bg-[#f8fafc] rounded-3xl p-6 lg:p-8 border border-gray-100 shadow-sm">
-                
-                <!-- Tombol WhatsApp Besar -->
-                <a id="wa-link-display" href="https://wa.me/6285784926661" target="_blank" class="flex items-center justify-between bg-brand-orange hover:bg-orange-600 text-white p-6 rounded-2xl transition-all shadow-[0_4px_20px_rgba(249,115,22,0.3)] transform hover:-translate-y-1 group">
-                    <div class="flex items-center gap-4">
-                        <i class="fa-brands fa-whatsapp text-4xl lg:text-5xl group-hover:scale-110 transition-transform"></i>
-                        <div>
-                            <h4 class="font-bold text-lg lg:text-xl">WhatsApp Admin</h4>
-                        </div>
-                    </div>
-                    <div class="hidden md:flex items-center gap-2 text-sm bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
-                        <span>Chat Sekarang</span> <i class="fa-solid fa-arrow-right"></i>
-                    </div>
-                </a>
-
-                <!-- Lokasi Sekolah dengan Peta Mini -->
-                <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-gray-200">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-blue-600">
-                            <i class="fa-solid fa-location-dot text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-[#0f172a] text-sm lg:text-base">Lokasi Sekolah</h4>
-                            <p class="text-gray-500 text-xs lg:text-sm">Jl. Pintu Gerbang No.157, Pamekasan, Jawa Timur</p>
-                        </div>
-                    </div>
-                    <!-- Placeholder untuk thumbnail peta -->
-                    <div class="w-16 h-16 bg-gray-200 rounded-xl overflow-hidden hidden sm:block relative">
-                         <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover opacity-60" alt="Map">
-                         <i class="fa-solid fa-location-pin absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-red-500"></i>
-                    </div>
+                    <!-- ID ini akan diisi otomatis oleh JavaScript Firestore -->
+                    <a href="#" id="btn-whatsapp-chat" target="_blank" class="mt-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">
+                        Chat Admin Sekarang
+                    </a>
                 </div>
 
+                <!-- Card Lokasi / Maps -->
+                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col items-center text-center hover:shadow-md transition">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mb-4">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Lokasi Sekolah</h3>
+                    <p class="text-gray-500 text-sm mb-6">Jl. Pintu Gerbang, Kec. Pamekasan, Kabupaten Pamekasan, Jawa Timur 69317.</p>
+                    
+                    <a href="https://www.google.com/maps/search/SMK+Negeri+1+Pamekasan/" target="_blank" class="mt-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition">
+                        Buka di Google Maps
+                    </a>
+                </div>
             </div>
 
         </div>
