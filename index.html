@@ -557,23 +557,24 @@
 
     <!-- MODAL POPUP GALERI KARYA -->
     <div id="modal-galeri" class="fixed inset-0 z-[100] hidden items-center justify-center bg-[#0f172a]/95 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300">
-        <!-- Container Utama (Background Hitam agar gambar tajam) -->
-        <div class="relative w-full max-w-4xl overflow-hidden flex flex-col scale-95 transition-transform duration-300 rounded-2xl shadow-2xl bg-black">
+        
+        <!-- Container Utama (Fleksibel dengan tinggi maksimal 90% layar) -->
+        <div class="relative w-full max-w-4xl max-h-[90vh] flex flex-col scale-95 transition-transform duration-300 rounded-2xl shadow-2xl bg-[#0f172a] border border-white/10 overflow-hidden">
             
             <!-- Tombol Tutup -->
-            <button onclick="closeModalGaleri()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-black/60 text-white rounded-full flex items-center justify-center hover:bg-brand-orange transition shadow-lg">
-                <i class="fa-solid fa-xmark text-xl"></i>
+            <button onclick="closeModalGaleri()" class="absolute top-3 right-3 z-20 w-9 h-9 bg-black/50 hover:bg-brand-orange text-white rounded-full flex items-center justify-center backdrop-blur-md transition shadow-lg border border-white/20">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             
-            <!-- Area Gambar & Teks -->
-            <div class="w-full max-h-[85vh] flex items-center justify-center relative">
-                <img id="modal-galeri-img" src="" class="w-full h-auto max-h-[85vh] object-contain">
-                
-                <!-- Area Judul & Deskripsi (Gelap Transparan bergaya Glassmorphism) -->
-                <div class="absolute bottom-0 w-full p-6 pt-12 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/90 to-transparent">
-                    <h3 id="modal-galeri-judul" class="text-xl lg:text-2xl font-bold text-white mb-2 drop-shadow-md"></h3>
-                    <p id="modal-galeri-desc" class="text-gray-300 text-sm lg:text-base drop-shadow max-w-3xl"></p>
-                </div>
+            <!-- Area Gambar (Otomatis menyesuaikan ukuran foto tanpa background hitam) -->
+            <div class="w-full flex-shrink-0 flex items-center justify-center border-b border-white/5">
+                <img id="modal-galeri-img" src="" class="w-full h-auto max-h-[50vh] sm:max-h-[60vh] lg:max-h-[70vh] object-contain">
+            </div>
+            
+            <!-- Area Judul & Deskripsi -->
+            <div class="w-full p-5 lg:p-8 overflow-y-auto">
+                <h3 id="modal-galeri-judul" class="text-xl lg:text-2xl font-bold text-white mb-3"></h3>
+                <p id="modal-galeri-desc" class="text-gray-300 text-sm lg:text-base leading-relaxed"></p>
             </div>
 
         </div>
