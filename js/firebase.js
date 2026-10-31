@@ -417,23 +417,35 @@ async function loadGaleriSiswa() {
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             
-            // Mengamankan tanda kutip tunggal agar tidak merusak sintaks onclick
+            // Mengamankan tanda kutip agar tidak merusak fungsi klik
             const safeJudul = data.judul ? data.judul.replace(/'/g, "\\'") : '';
             const safeDeskripsi = data.deskripsi ? data.deskripsi.replace(/'/g, "\\'") : '';
             
             htmlContent += `
-                <!-- Tambahkan parameter ke-3 (safeDeskripsi) pada onclick -->
-                <div onclick="openModalGaleri('${data.url_gambar}', '${safeJudul}', '${safeDeskripsi}')" class="group cursor-pointer rounded-2xl overflow-hidden relative shadow-sm border border-gray-100 bg-white">
-                    <div class="relative h-48 lg:h-64 w-full overflow-hidden">
-                        <img src="${data.url_gambar}" alt="${data.judul}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
-                            <span class="text-white font-bold text-sm bg-brand-orange px-3 py-1 rounded-full w-max mb-2">Lihat Detail</span>
+                <div onclick="openModalGaleri('${data.url_gambar}', '${safeJudul}', '${safeDeskripsi}')" class="group relative cursor-pointer rounded-2xl overflow-hidden shadow-md h-64 lg:h-80 w-full">
+                    
+                    <!-- Gambar Latar -->
+                    <img src="${data.url_gambar}" alt="${data.judul}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    
+                    <!-- Overlay Gradasi Gelap (Selalu ada di bawah agar teks terbaca) -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/50 to-transparent flex flex-col justify-end p-5 lg:p-6 transition-all duration-300">
+                        
+                        <!-- Efek naik sedikit saat di-hover -->
+                        <div class="transform transition-transform duration-300 group-hover:-translate-y-2">
+                            <!-- Judul -->
+                            <h3 class="text-lg lg:text-xl font-bold text-white mb-1 drop-shadow-md">${data.judul}</h3>
+                            
+                            <!-- Deskripsi (Dibatasi maksimal 2 baris) -->
+                            <p class="text-gray-200 text-xs sm:text-sm line-clamp-2 mb-3 drop-shadow">${data.deskripsi}</p>
+                            
+                            <!-- Tombol Lihat Detail -->
+                            <span class="inline-flex items-center gap-1 text-white font-bold text-[11px] sm:text-xs bg-brand-orange px-3 py-1.5 rounded-full w-max shadow-lg opacity-90 group-hover:opacity-100 transition">
+                                Lihat Detail <i class="fa-solid fa-chevron-right text-[9px]"></i>
+                            </span>
                         </div>
+                        
                     </div>
-                    <div class="p-5">
-                        <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-brand-orange transition-colors">${data.judul}</h3>
-                        <p class="text-gray-500 text-sm line-clamp-2">${data.deskripsi}</p>
-                    </div>
+                    
                 </div>
             `;
         });
